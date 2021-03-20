@@ -13,4 +13,5 @@ public abstract class AMazeGenerator implements IMazeGenerator {
         end_time = System.currentTimeMillis();
         return end_time - start_time;
     }
+    // try to commit ??? by ohad miller
 }
