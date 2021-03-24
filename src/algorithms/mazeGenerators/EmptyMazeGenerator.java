@@ -10,6 +10,8 @@ public class EmptyMazeGenerator extends AMazeGenerator {
                 empty_maze.mazeArr[i][j] = 0;
             }
         }
+        empty_maze.setStartPosition(new Position(0, 0));
+        empty_maze.setGoalPosition(new Position(row - 1, col - 1));
         return empty_maze;
     }
 }

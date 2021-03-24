@@ -6,21 +6,35 @@ public class SimpleMazeGenerator extends AMazeGenerator {
 
     @Override
     public Maze generate(int row, int col) {
-
         Maze maze = new Maze(row, col);
+        Position start = new Position(0, 0);
+        Position goal = new Position(row - 1, col - 1);
+        maze.setStartPosition(start);
+        maze.setGoalPosition(goal);
         maze.mazeArr = new int[row][col];
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
-                //TODO: put some walls somewhere...
                 Random r = new Random();
-                int rnd =  r.nextInt((1 - 0) + 1) + 0;
+                int rnd = r.nextInt((1 - 0) + 1);
                 maze.mazeArr[i][j] = rnd;
-                System.out.print(rnd + " ");
-
+                //System.out.print(rnd + " ");
+            }
+            //System.out.println();
+        }
+        // make one way from start to goal manually
+        for (int i = 0; i < row; i++) {
+            maze.mazeArr[i][0] = 0;
+        }
+        for (int i = 0; i < col; i++) {
+            maze.mazeArr[row - 1][i] = 0;
+        }
+        /*System.out.println("***********print after make way**********");
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                System.out.print(maze.mazeArr[i][j] + " ");
             }
             System.out.println();
-        }
-        return  maze;
-
+        }*/
+        return maze;
     }
 }
