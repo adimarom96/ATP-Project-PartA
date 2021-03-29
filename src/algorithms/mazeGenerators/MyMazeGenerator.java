@@ -55,7 +55,7 @@ public class MyMazeGenerator extends AMazeGenerator {
         }
         Maze new_maze = new Maze(row - 1, col - 1);
         new_maze.mazeArr = copyarr;
-        SetPos(new_maze);
+        SetPos(new_maze);// may god help us
         return new_maze;
     }
 
