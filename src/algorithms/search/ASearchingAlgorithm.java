@@ -1,8 +1,9 @@
 package algorithms.search;
 
 public abstract class ASearchingAlgorithm implements  ISearchingAlgorithm{
+    static  int count=0;
     protected String name;
-    protected  int numOfNode;
+    protected  int numberOfNodesEvaluated;
 
     @Override
     public String getName() {
@@ -15,15 +16,16 @@ public abstract class ASearchingAlgorithm implements  ISearchingAlgorithm{
     }
 
     public int getNumOfNode() {
-        return numOfNode;
+        return numberOfNodesEvaluated;
     }
 
     public void setNumOfNode(int numOfNode) {
-        this.numOfNode = numOfNode;
+        this.numberOfNodesEvaluated = numOfNode;
     }
 
 
+    public ASearchingAlgorithm(String name) {
+        this.name = name;
 
-    // constrctuor
-
+    }
 }

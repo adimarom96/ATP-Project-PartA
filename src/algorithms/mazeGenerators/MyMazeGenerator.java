@@ -20,13 +20,14 @@ public class MyMazeGenerator extends AMazeGenerator {
         int x, y;
         LinkedList<int[]> designated = new LinkedList<>();// list of arrays that contain the possible path to the next move
         final Random random = new Random();
-        row = row + 1;
-        col = col + 1;
+       /* row = row + 1;
+        col = col + 1;*/
         Maze maze = init_with_one(new Maze(row, col));// init
 
 
         x =0;
         y = random.nextInt(col);
+
 
         designated.add(new int[]{x, y, x, y});
         while (!designated.isEmpty()) {
@@ -47,16 +48,19 @@ public class MyMazeGenerator extends AMazeGenerator {
         }
 
         //slice the array
-        int[][] copyarr = new int[row - 1][col - 1];
+        /*int[][] copyarr = new int[row - 1][col - 1];
         for (int i = 0; i < row - 1; i++) {
             for (int j = 0; j < col - 1; j++) {
                 copyarr[i][j] = maze.mazeArr[i][j];
             }
         }
         Maze new_maze = new Maze(row - 1, col - 1);
-        new_maze.mazeArr = copyarr;
-        SetPos(new_maze);// may god help us
-        return new_maze;
+        new_maze.mazeArr = copyarr;*/
+        SetPos(maze);// may god help us
+        if(maze.getGoalPosition() == null || maze.getStartPosition() == null) {
+            maze = this.generate(row+1,col+1); //todo: remove the plus 1
+        }
+        return maze;
     }
 
 

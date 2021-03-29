@@ -1,5 +1,11 @@
 package algorithms.mazeGenerators;
 
+
+import algorithms.search.AState;
+import algorithms.search.MazeState;
+
+import java.util.ArrayList;
+
 public class Maze {
     int numOfRow;
     int numOfCol;
@@ -29,17 +35,35 @@ public class Maze {
             mazeArr = new int[row][col];
     }
 
+    public int getNumOfRow() {
+        return numOfRow;
+    }
+
+    public int getNumOfCol() {
+        return numOfCol;
+    }
+
+    public Boolean possibleToGo(int x , int y){
+        if(mazeArr[x][y] == 0 || mazeArr[x][y] == 5)
+            return true;
+        return  false;
+    }
+
     public void Print() {
+        System.out.print("   ");
         for (int i = 0; i < numOfRow; i++) {
+            System.out.print(" " + i );
+        }
+        System.out.println("");
+        for (int i = 0; i < numOfRow; i++) {
+            System.out.print( i + " | ");
             for (int j = 0; j < numOfCol; j++) {
-//                if(i == getStartPosition().getRowIndex() && j == getStartPosition().getColumnIndex())
-//                    System.out.print("S ");
-//                else if (i == getGoalPosition().getRowIndex() && j == getGoalPosition().getColumnIndex())
-//                    System.out.print("E ");
-//                else
+//
                     System.out.print(this.mazeArr[i][j] + " ");
             }
             System.out.println(); // "\n"
         }
     }
+
+
 }

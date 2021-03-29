@@ -1,12 +1,14 @@
 package algorithms.search;
 
+import java.util.Objects;
+
 public abstract class AState {
     private double cost;
     private  AState PreState;
 
     public AState(double cost, AState preState) {
         this.cost = cost;
-        PreState = preState;
+        this.PreState = preState;
     }
 
     public double getCost() {
@@ -22,7 +24,16 @@ public abstract class AState {
     }
 
     public void setPreState(AState preState) {
-        PreState = preState;
+        this.PreState = preState;
     }
+
+
+    @Override
+    public abstract boolean equals(Object obj);
+
+
+    @Override
+    public abstract String toString();
+
 
 }
