@@ -1,12 +1,11 @@
 package algorithms.maze3D;
-
 public class Position3D {
-
     private int row;
     private int col;
     private int depth;
 
-    public Position3D(int depth,int row, int col) {
+    // constructor
+    public Position3D(int depth, int row, int col) {
         this.row = row;
         this.col = col;
         this.depth = depth;
@@ -20,13 +19,13 @@ public class Position3D {
         return col;
     }
 
-    public int getDepth() {
+    public int getDepthIndex() {
         return depth;
     }
 
+    // print in format of {depth,row,column}
     @Override
     public String toString() {
-        // print in format of {row,column}
-        return "{"+ depth +  "," + row + "," + col + "}";
+        return "{" + depth + "," + row + "," + col + "}";
     }
 }

@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.Random;
 
 public class MyMaze3DGenerator extends AMaze3DGenerator {
+    // init all the maze with "1" - all walls
     private Maze3D init_with_one(Maze3D maze) {
         for (int z = 0; z < maze.numOfDepth; z++) {
             for (int i = 0; i < maze.numOfRow; i++) {
@@ -13,17 +14,14 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
             }
         }
         return maze;
-
     }
 
     @Override
     public Maze3D generate(int depth, int row, int column) {
-        //inistialize
+        //initialize
         int z, x, y;
         LinkedList<int[]> designated = new LinkedList<>();// list of arrays that contain the possible path to the next move
         final Random random = new Random();
-       /* row = row + 1;
-        col = col + 1;*/
         Maze3D maze = init_with_one(new Maze3D(depth, row, column));// init
         z = 0;
         x = 0;
@@ -37,6 +35,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
             y = f[5];
             if (maze.map[z][x][y] == 1) {
                 maze.map[f[0]][f[1]][f[2]] = maze.map[z][x][y] = 0;
+
                 if (z >= 2 && maze.map[z - 2][x][y] == 1)
                     designated.add(new int[]{z - 1, x, y, z - 2, x, y});
 
@@ -55,39 +54,35 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
                 if (y < column - 2 && maze.map[z][x][y + 2] == 1)
                     designated.add(new int[]{z, x, y + 1, z, x, y + 2});
             }
-
         }
-        SetPos(maze);// may god help us
-        /*if(maze.getGoalPosition() == null || maze.getStartPosition() == null) {
-            maze = this.generate(row+1,col+1);
-        }*/
+        setPos(maze);// function that set the start and goal point
         return maze;
     }
 
-    private void SetPos(Maze3D maze) {
+    private void setPos(Maze3D maze) {
+        // set start point
         for (int i = 0; i < maze.numOfCol; i++) {
             if (maze.map[0][0][i] == 0) {
                 maze.setStartPosition(new Position3D(0, 0, i));
                 maze.map[0][0][i] = 4;
                 break;
             }
-
         }
-        int j = maze.numOfRow-1;
+        // set goal point
+        outerloop: // label to break the nested loop
         for (int i = maze.numOfCol - 1; i > 0; i--) {
-            if (maze.map[maze.numOfDepth - 1][maze.numOfRow - 1][i] == 0) {
-                maze.setGoalPosition(new Position3D(maze.numOfDepth - 1, maze.numOfRow - 1, i));
-                maze.map[maze.numOfDepth - 1][maze.numOfRow - 1][i] = 5;
-                break;
+            for (int j = maze.numOfRow - 1; j > 0; j--) {
+                if (maze.map[maze.numOfDepth - 1][j][i] == 0) {
+                    maze.setGoalPosition(new Position3D(maze.numOfDepth - 1, j, i));
+                    maze.map[maze.numOfDepth - 1][j][i] = 5;
+                    break outerloop; // break both loops !
+                }
+                if (maze.map[maze.numOfDepth - 2][j][i] == 0) {
+                    maze.setGoalPosition(new Position3D(maze.numOfDepth - 1, j, i));
+                    maze.map[maze.numOfDepth - 1][j][i] = 5;
+                    break outerloop; // break both loops !
+                }
             }
-            if (maze.map[maze.numOfDepth - 1][j][maze.numOfCol-1] == 0) {
-                maze.setGoalPosition(new Position3D(maze.numOfDepth - 1, j, maze.numOfCol-1));
-                maze.map[maze.numOfDepth - 1][j][maze.numOfCol-1] = 5;
-                break;
-            }
-             j--;
-
-
         }
     }
 }

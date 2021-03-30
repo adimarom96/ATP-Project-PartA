@@ -1,4 +1,5 @@
 package algorithms.search;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -6,13 +7,15 @@ import java.util.Queue;
 public class BreadthFirstSearch extends ASearchingAlgorithm {
     protected Queue<AState> state_q;
 
+    // constructor
     public BreadthFirstSearch() {
         super("BFS");
         numberOfNodesEvaluated = 0;
         this.state_q = new LinkedList<>();
     }
 
-    public BreadthFirstSearch(String name, Queue<AState> state_q) { // constrctuor for the sucsccsor
+    // constructor for the successor (Best)
+    public BreadthFirstSearch(String name, Queue<AState> state_q) {
         super(name);
         numberOfNodesEvaluated = 0;
         this.state_q = state_q;
@@ -22,8 +25,10 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
     public int getNumberOfNodesEvaluated() {
         return numberOfNodesEvaluated;
     }
+
     public Solution solve(ISearchable problem) {
-        if(count != 0){
+        // if this is not the first try to solve the maze we need to first reset all the PreState
+        if (count != 0) {
             problem.restStates();
         }
         AState start = problem.getStart();
@@ -31,7 +36,7 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
         AState prev = start;
         AState goal = problem.getGoal();
         count++;
-        this.state_q = new LinkedList<>(); // q that will hold all the possible moves that we didnot visted
+        this.state_q = new LinkedList<>(); // q that will hold all the possible moves that we didn't visited
         ArrayList<AState> neighbors; // all the possible moves for the current state
         Solution sol = new Solution(goal);
         state_q.add(start);
@@ -44,11 +49,11 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
             }
             prev = state_q.remove();
             neighbors = problem.getAllPossible(prev); // get all the neighbors
-            for (AState s : neighbors
+            for (AState s : neighbors // for each neighbor do:
             ) {
-                if (s.getPreState() == null) { // check which of the neighbors hasnot been handle
+                if (s.getPreState() == null) { // check which of the neighbors has not been handle
                     s.setPreState(current);
-                    if (s.equals(goal)) {
+                    if (s.equals(goal)) { // if we found the wanted state
                         numberOfNodesEvaluated++;
                         goal = s;
                         return new Solution(goal);
@@ -60,5 +65,4 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
         }
         return sol;
     }
-
 }

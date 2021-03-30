@@ -1,5 +1,4 @@
 package algorithms.search;
-
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -15,7 +14,8 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
 
     @Override
     public Solution solve(ISearchable domain) {
-        if(count != 0){ // if we have solves alredy on maze and we want to restrat the mazestate pre state
+        // if this is not the first try to solve the maze we need to first reset all the PreState
+        if(count != 0){
             domain.restStates();
         }
         AState start = domain.getStart();
@@ -36,11 +36,11 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
             }
             prev = stack.pop();
             neighbors = domain.getAllPossible(prev); // get all the neighbors
-            for (AState s : neighbors
+            for (AState s : neighbors  // for each neighbor do:
             ) {
-                if (s.getPreState() == null) { // check which of the neighbors hasnot been handle
+                if (s.getPreState() == null) { // check which of the neighbors has not been handle
                     s.setPreState(current);
-                    if (s.equals(goal)) {
+                    if (s.equals(goal)) { // if we found the wanted state
                         numberOfNodesEvaluated++;
                         goal = s;
                         return new Solution(goal);
@@ -51,7 +51,5 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
             }
         }
         return sol;
-
     }
-
 }

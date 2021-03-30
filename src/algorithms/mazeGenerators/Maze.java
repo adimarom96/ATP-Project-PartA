@@ -1,17 +1,17 @@
 package algorithms.mazeGenerators;
 
-
 import algorithms.search.AState;
 import algorithms.search.MazeState;
 
 import java.util.ArrayList;
 
 public class Maze {
-    int numOfRow;
-    int numOfCol;
+    // TODO: make them all private ??!! (and add getters)
+    private int numOfRow;
+    private int numOfCol;
     int[][] mazeArr;
-    Position StartPosition;
-    Position GoalPosition;
+    private Position StartPosition;
+    private Position GoalPosition;
 
     public Position getStartPosition() {
         return StartPosition;
@@ -30,9 +30,9 @@ public class Maze {
     }
 
     public Maze(int row, int col) {
-            numOfCol = col;
-            numOfRow = row;
-            mazeArr = new int[row][col];
+        numOfCol = col;
+        numOfRow = row;
+        mazeArr = new int[row][col];
     }
 
     public int getNumOfRow() {
@@ -43,27 +43,29 @@ public class Maze {
         return numOfCol;
     }
 
-    public Boolean possibleToGo(int x , int y){
-        if(mazeArr[x][y] == 0 || mazeArr[x][y] == 5)
+    public Boolean possibleToGo(int x, int y) {
+        if (mazeArr[x][y] == 0 || mazeArr[x][y] == 5)
             return true;
-        return  false;
+        return false;
     }
 
-    public void Print() {
+    public void print() {
         System.out.print("   ");
         for (int i = 0; i < numOfRow; i++) {
-            System.out.print(" " + i );
+            System.out.print(" " + i);
         }
         System.out.println("");
         for (int i = 0; i < numOfRow; i++) {
-            System.out.print( i + " | ");
+            System.out.print(i + " { "); // new row
             for (int j = 0; j < numOfCol; j++) {
-//
+                if (this.getStartPosition().getColumnIndex() == j && this.getStartPosition().getRowIndex() == i)
+                    System.out.print("S "); // start point as S
+                else if (this.getGoalPosition().getColumnIndex() == j && this.getGoalPosition().getRowIndex() == i)
+                    System.out.print("E "); // end point as E
+                else
                     System.out.print(this.mazeArr[i][j] + " ");
             }
-            System.out.println(); // "\n"
+            System.out.println("}"); // end of row
         }
     }
-
-
 }

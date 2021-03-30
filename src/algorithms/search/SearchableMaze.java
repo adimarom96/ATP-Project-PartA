@@ -1,8 +1,6 @@
 package algorithms.search;
-
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.Position;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -10,6 +8,7 @@ public class SearchableMaze implements ISearchable {
     Maze maze;
     MazeState[][] statesArray;
 
+    // constructor
     public SearchableMaze(Maze maze) {
         this.maze = maze;
         Random random = new Random();
@@ -17,7 +16,7 @@ public class SearchableMaze implements ISearchable {
         MazeState[][] statesArray = new MazeState[maze.getNumOfRow()][maze.getNumOfCol()];
         for (int i = 0; i < maze.getNumOfRow(); i++) {
             for (int j = 0; j < maze.getNumOfCol(); j++) {
-                x =random.nextInt(50);
+                x = random.nextInt(50);// random for the cost of each state
                 statesArray[i][j] = new MazeState(x, null, new Position(i, j));
             }
         }
@@ -26,8 +25,7 @@ public class SearchableMaze implements ISearchable {
 
     @Override
     public AState getStart() {
-        Position pos= maze.getStartPosition();
-        MazeState state = new MazeState(1, null, pos);
+        MazeState state = new MazeState(1, null, maze.getStartPosition());
         return state;
     }
 
@@ -37,6 +35,7 @@ public class SearchableMaze implements ISearchable {
         return state;
     }
 
+    // this function checks if the position we got is legal
     private boolean inBorder(int x, int y) {
         if (x > -1 && x < maze.getNumOfRow()) {
             return y > -1 && y < maze.getNumOfCol();
@@ -44,8 +43,10 @@ public class SearchableMaze implements ISearchable {
         return false;
     }
 
+    // this function returns all the possible states from the AState we got
     @Override
-    public ArrayList<AState> getAllPossible(AState state) { // return all the neighbors that i can go from this current pos
+    public ArrayList<AState> getAllPossible(AState state) {
+        // return all the neighbors that i can go from this current pos
         ArrayList<AState> possibleState = new ArrayList<AState>();
         int x = ((MazeState) state).getPos().getRowIndex();
         int y = ((MazeState) state).getPos().getColumnIndex();
@@ -92,12 +93,12 @@ public class SearchableMaze implements ISearchable {
             }
         }
         //-------------------------------up
-        if (inBorder(x-1, y)) {
-            if (maze.possibleToGo(x-1,y)) {
-                possibleState.add(statesArray[x-1][y]);
+        if (inBorder(x - 1, y)) {
+            if (maze.possibleToGo(x - 1, y)) {
+                possibleState.add(statesArray[x - 1][y]);
 
                 //up left
-                if (inBorder(x - 1, y-1 )) {
+                if (inBorder(x - 1, y - 1)) {
                     if (maze.possibleToGo(x - 1, y - 1) && !possibleState.contains(statesArray[x - 1][y - 1])) {
                         possibleState.add(statesArray[x - 1][y - 1]);
                     }
@@ -105,19 +106,19 @@ public class SearchableMaze implements ISearchable {
 
                 // up right
                 if (inBorder(x - 1, y + 1)) {
-                    if (maze.possibleToGo(x - 1, y + 1)&& !possibleState.contains(statesArray[x - 1][y + 1])) {
+                    if (maze.possibleToGo(x - 1, y + 1) && !possibleState.contains(statesArray[x - 1][y + 1])) {
                         possibleState.add(statesArray[x - 1][y + 1]);
                     }
                 }
             }
         }
         // ------------------------------bottom
-        if (inBorder(x+1, y )) {
-            if (maze.possibleToGo(x+1, y )) {
-                possibleState.add(statesArray[x+1][y]);
+        if (inBorder(x + 1, y)) {
+            if (maze.possibleToGo(x + 1, y)) {
+                possibleState.add(statesArray[x + 1][y]);
 
                 //bottom left
-                if (inBorder(x+1, y -1)) {
+                if (inBorder(x + 1, y - 1)) {
                     if (maze.possibleToGo(x + 1, y - 1)) {
                         possibleState.add(statesArray[x + 1][y - 1]);
                     }
@@ -131,14 +132,14 @@ public class SearchableMaze implements ISearchable {
                 }
             }
         }
-
         return possibleState;
     }
 
+    // this function reset all the "preState" board before we try to solve it again.
     @Override
     public void restStates() {
-        for (int i = 0; i <maze.getNumOfRow(); i++) {
-            for (int j = 0; j <maze.getNumOfCol() ; j++) {
+        for (int i = 0; i < maze.getNumOfRow(); i++) {
+            for (int j = 0; j < maze.getNumOfCol(); j++) {
                 statesArray[i][j].setPreState(null);
             }
         }

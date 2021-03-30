@@ -17,9 +17,7 @@ public class SimpleMazeGenerator extends AMazeGenerator {
                 Random r = new Random();
                 int rnd = r.nextInt((1 - 0) + 1);
                 maze.mazeArr[i][j] = rnd;
-                //System.out.print(rnd + " ");
             }
-            //System.out.println();
         }
         // make one way from start to goal manually
         for (int i = 0; i < row; i++) {
@@ -28,13 +26,6 @@ public class SimpleMazeGenerator extends AMazeGenerator {
         for (int i = 0; i < col; i++) {
             maze.mazeArr[row - 1][i] = 0;
         }
-        /*System.out.println("***********print after make way**********");
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < col; j++) {
-                System.out.print(maze.mazeArr[i][j] + " ");
-            }
-            System.out.println();
-        }*/
         return maze;
     }
 }

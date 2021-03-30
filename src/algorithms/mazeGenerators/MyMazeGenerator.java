@@ -4,10 +4,9 @@ import java.util.LinkedList;
 import java.util.Random;
 
 public class MyMazeGenerator extends AMazeGenerator {
-
     private Maze init_with_one(Maze maze) {
-        for (int i = 0; i < maze.numOfRow; i++) {
-            for (int j = 0; j < maze.numOfCol; j++) {
+        for (int i = 0; i < maze.getNumOfRow(); i++) {
+            for (int j = 0; j < maze.getNumOfCol(); j++) {
                 maze.mazeArr[i][j] = 1;
             }
         }
@@ -16,18 +15,16 @@ public class MyMazeGenerator extends AMazeGenerator {
 
     @Override
     public Maze generate(int row, int col) {
-        //inistialize
+        //initialize
         int x, y;
         LinkedList<int[]> designated = new LinkedList<>();// list of arrays that contain the possible path to the next move
         final Random random = new Random();
        /* row = row + 1;
         col = col + 1;*/
-        Maze maze = init_with_one(new Maze(row, col));// init
+        Maze maze = init_with_one(new Maze(row, col));// init with all 1
 
-
-        x =0;
+        x = 0;
         y = random.nextInt(col);
-
 
         designated.add(new int[]{x, y, x, y});
         while (!designated.isEmpty()) {
@@ -47,8 +44,9 @@ public class MyMazeGenerator extends AMazeGenerator {
             }
         }
 
+        /*
         //slice the array
-        /*int[][] copyarr = new int[row - 1][col - 1];
+        int[][] copyarr = new int[row - 1][col - 1];
         for (int i = 0; i < row - 1; i++) {
             for (int j = 0; j < col - 1; j++) {
                 copyarr[i][j] = maze.mazeArr[i][j];
@@ -56,31 +54,26 @@ public class MyMazeGenerator extends AMazeGenerator {
         }
         Maze new_maze = new Maze(row - 1, col - 1);
         new_maze.mazeArr = copyarr;*/
-        SetPos(maze);// may god help us
-        if(maze.getGoalPosition() == null || maze.getStartPosition() == null) {
-            maze = this.generate(row+1,col+1); //todo: remove the plus 1
+
+        SetPos(maze);
+        if (maze.getGoalPosition() == null || maze.getStartPosition() == null) {
+            maze = this.generate(row + 1, col + 1); //todo: remove the plus 1
         }
         return maze;
     }
 
-
     private void SetPos(Maze maze) {
-        for (int i = 0; i < maze.numOfCol; i++) {
+        for (int i = 0; i < maze.getNumOfCol(); i++) {
             if (maze.mazeArr[0][i] == 0) {
                 maze.setStartPosition(new Position(0, i));
-                maze.mazeArr[0][i]=4;
                 break;
             }
-
         }
-        for (int i = maze.numOfCol-1 ;i > 0; i--) {
-            if (maze.mazeArr[maze.numOfRow-1][i] == 0) {
-                maze.setGoalPosition(new Position(maze.numOfRow - 1, i));
-                maze.mazeArr[maze.numOfRow - 1][i]=5;
-
+        for (int i = maze.getNumOfCol() - 1; i > 0; i--) {
+            if (maze.mazeArr[maze.getNumOfRow() - 1][i] == 0) {
+                maze.setGoalPosition(new Position(maze.getNumOfRow() - 1, i));
                 break;
             }
-
         }
     }
 }

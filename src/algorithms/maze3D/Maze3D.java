@@ -1,6 +1,7 @@
 package algorithms.maze3D;
 
 public class Maze3D {
+    // TODO: maybe private ?!?!?
     int numOfDepth;
     int numOfRow;
     int numOfCol;
@@ -8,6 +9,7 @@ public class Maze3D {
     Position3D StartPosition;
     Position3D GoalPosition;
 
+    // constructor
     public Maze3D(int depth, int row, int col) {
         numOfDepth = depth;
         numOfCol = col;
@@ -43,28 +45,32 @@ public class Maze3D {
         return numOfCol;
     }
 
+    // this function checks if the position we got is good to go ( =0 )
     public Boolean possibleToGo(int z, int x, int y) {
-        if (map[z][x][y] == 0 || map[z][x][y] == 5)
+        if (map[z][x][y] == 0 || map[z][x][y] == 5)// TODO: remove the =5
             return true;
         return false;
     }
 
-    public void Print() {
-        /*System.out.print("   ");
-        for (int i = 0; i < numOfRow; i++) {
-            System.out.print(" " + i);
-        }
-        System.out.println("");*/
+    // this function print the 3D maze as requested
+    public void print() {
+        System.out.println("{");
         for (int z = 0; numOfDepth > z; z++) {
             for (int i = 0; i < numOfRow; i++) {
+                System.out.print("{ ");
                 for (int j = 0; j < numOfCol; j++) {
                     System.out.print(this.map[z][i][j] + " ");
                 }
+                System.out.print("}");
                 System.out.println();
             }
-            System.out.println();
-
+            if (z != numOfDepth - 1) {
+                // print ----- between every 2 surfaces in the depth
+                String str = "-";
+                System.out.println(str.repeat(2 * numOfCol + 3));
+            }
         }
+        System.out.println("}");
     }
 
     public int[][][] getMap() {

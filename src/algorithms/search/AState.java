@@ -6,6 +6,7 @@ public abstract class AState {
     private double cost;
     private  AState PreState;
 
+    // constructor
     public AState(double cost, AState preState) {
         this.cost = cost;
         this.PreState = preState;
@@ -27,13 +28,9 @@ public abstract class AState {
         this.PreState = preState;
     }
 
-
     @Override
     public abstract boolean equals(Object obj);
 
-
     @Override
     public abstract String toString();
-
-
 }
