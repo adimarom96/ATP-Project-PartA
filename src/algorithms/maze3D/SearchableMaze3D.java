@@ -54,7 +54,7 @@ public class SearchableMaze3D implements ISearchable {
 
     // this function returns all the possible states from the AState we got
     @Override
-    public ArrayList<AState> getAllPossible(AState state) {
+    public ArrayList<AState> getAllSuccessors(AState state) {
         ArrayList<AState> possibleState = new ArrayList<AState>();
         int z = ((Maze3DState) state).getPos().getDepthIndex();
         int x = ((Maze3DState) state).getPos().getRowIndex();

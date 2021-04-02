@@ -1,4 +1,5 @@
 package algorithms.search;
+
 import algorithms.mazeGenerators.Position;
 
 public class MazeState extends AState {
@@ -17,7 +18,7 @@ public class MazeState extends AState {
     // check if the state we have equals to the state we got
     @Override
     public boolean equals(Object obj) {
-        if (this.pos.getColumnIndex() == ((MazeState) obj).getPos().getColumnIndex() && this.pos.getRowIndex() == ((MazeState) obj).getPos().getRowIndex())
+        if (obj != null && this.pos.getColumnIndex() == ((MazeState) obj).getPos().getColumnIndex() && this.pos.getRowIndex() == ((MazeState) obj).getPos().getRowIndex())
             return true;
         return false;
     }
@@ -28,3 +29,5 @@ public class MazeState extends AState {
         return this.getPos().toString();
     }
 }
+
+// new condition in line 21 - if obj != null...

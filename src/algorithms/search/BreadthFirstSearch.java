@@ -27,9 +27,10 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
     }
 
     public Solution solve(ISearchable problem) {
-        // if this is not the first try to solve the maze we need to first reset all the PreState
+        // if this is not the first try to solve the maze we need to first reset all the PreState adn costs
         if (count != 0) {
             problem.restStates();
+            count = 0;
         }
         AState start = problem.getStart();
         AState current;
@@ -48,7 +49,7 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
                 break;
             }
             prev = state_q.remove();
-            neighbors = problem.getAllPossible(prev); // get all the neighbors
+            neighbors = problem.getAllSuccessors(prev); // get all the neighbors
             for (AState s : neighbors // for each neighbor do:
             ) {
                 if (s.getPreState() == null) { // check which of the neighbors has not been handle

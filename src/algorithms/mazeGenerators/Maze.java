@@ -10,6 +10,11 @@ public class Maze {
     private int numOfRow;
     private int numOfCol;
     int[][] mazeArr;
+
+    public void setMazeArr(int[][] mazeArr) {
+        this.mazeArr = mazeArr;
+    }
+
     private Position StartPosition;
     private Position GoalPosition;
 
@@ -44,12 +49,13 @@ public class Maze {
     }
 
     public Boolean possibleToGo(int x, int y) {
-        if (mazeArr[x][y] == 0 || mazeArr[x][y] == 5)
+        if (mazeArr[x][y] == 0)
             return true;
         return false;
     }
 
     public void print() {
+        //TODO: remove index !!!
         System.out.print("   ");
         for (int i = 0; i < numOfRow; i++) {
             System.out.print(" " + i);
@@ -58,9 +64,9 @@ public class Maze {
         for (int i = 0; i < numOfRow; i++) {
             System.out.print(i + " { "); // new row
             for (int j = 0; j < numOfCol; j++) {
-                if (this.getStartPosition().getColumnIndex() == j && this.getStartPosition().getRowIndex() == i)
+                if (this.getStartPosition() != null &&this.getStartPosition().getColumnIndex() == j && this.getStartPosition().getRowIndex() == i)
                     System.out.print("S "); // start point as S
-                else if (this.getGoalPosition().getColumnIndex() == j && this.getGoalPosition().getRowIndex() == i)
+                else if (this.getGoalPosition() != null && this.getGoalPosition().getColumnIndex() == j && this.getGoalPosition().getRowIndex() == i)
                     System.out.print("E "); // end point as E
                 else
                     System.out.print(this.mazeArr[i][j] + " ");
@@ -69,3 +75,5 @@ public class Maze {
         }
     }
 }
+
+// new condition :this.getGoalPosition() != null in else if line 64

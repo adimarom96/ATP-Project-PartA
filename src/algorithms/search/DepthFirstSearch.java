@@ -35,7 +35,7 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
                 break;
             }
             prev = stack.pop();
-            neighbors = domain.getAllPossible(prev); // get all the neighbors
+            neighbors = domain.getAllSuccessors(prev); // get all the neighbors
             for (AState s : neighbors  // for each neighbor do:
             ) {
                 if (s.getPreState() == null) { // check which of the neighbors has not been handle

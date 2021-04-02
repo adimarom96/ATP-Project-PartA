@@ -15,6 +15,8 @@ public class MyMazeGenerator extends AMazeGenerator {
 
     @Override
     public Maze generate(int row, int col) {
+        if (row < 2 || col < 2)
+            throw new RuntimeException("Wrong parameters !");
         //initialize
         int x, y;
         LinkedList<int[]> designated = new LinkedList<>();// list of arrays that contain the possible path to the next move
@@ -22,10 +24,8 @@ public class MyMazeGenerator extends AMazeGenerator {
        /* row = row + 1;
         col = col + 1;*/
         Maze maze = init_with_one(new Maze(row, col));// init with all 1
-
         x = 0;
         y = random.nextInt(col);
-
         designated.add(new int[]{x, y, x, y});
         while (!designated.isEmpty()) {
             final int[] f = designated.remove(random.nextInt(designated.size()));
@@ -57,7 +57,7 @@ public class MyMazeGenerator extends AMazeGenerator {
 
         SetPos(maze);
         if (maze.getGoalPosition() == null || maze.getStartPosition() == null) {
-            maze = this.generate(row + 1, col + 1); //todo: remove the plus 1
+            maze = this.generate(row, col);// TODO:
         }
         return maze;
     }
@@ -72,6 +72,13 @@ public class MyMazeGenerator extends AMazeGenerator {
         for (int i = maze.getNumOfCol() - 1; i > 0; i--) {
             if (maze.mazeArr[maze.getNumOfRow() - 1][i] == 0) {
                 maze.setGoalPosition(new Position(maze.getNumOfRow() - 1, i));
+                break;
+            }
+        }
+        for (int i = maze.getNumOfCol() - 1; i > 0; i--) {
+            if (maze.mazeArr[maze.getNumOfRow() - 2][i] == 0) {
+                maze.setGoalPosition(new Position(maze.getNumOfRow() - 1, i));
+                maze.mazeArr[maze.getNumOfRow() - 1][i] = 0;
                 break;
             }
         }

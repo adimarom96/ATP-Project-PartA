@@ -1,10 +1,9 @@
 package algorithms.search;
-
 import java.util.Objects;
 
 public abstract class AState {
     private double cost;
-    private  AState PreState;
+    private AState PreState;
 
     // constructor
     public AState(double cost, AState preState) {

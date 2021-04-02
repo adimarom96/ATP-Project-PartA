@@ -1,6 +1,8 @@
 package algorithms.search;
+
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.Position;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -12,12 +14,13 @@ public class SearchableMaze implements ISearchable {
     public SearchableMaze(Maze maze) {
         this.maze = maze;
         Random random = new Random();
-        int x;
+        int cost;
         MazeState[][] statesArray = new MazeState[maze.getNumOfRow()][maze.getNumOfCol()];
         for (int i = 0; i < maze.getNumOfRow(); i++) {
             for (int j = 0; j < maze.getNumOfCol(); j++) {
-                x = random.nextInt(50);// random for the cost of each state
-                statesArray[i][j] = new MazeState(x, null, new Position(i, j));
+                //cost = random.nextInt(50);// random for the cost of each state
+                cost = 10; // regular step (ohad)
+                statesArray[i][j] = new MazeState(cost, null, new Position(i, j));
             }
         }
         this.statesArray = statesArray;
@@ -45,61 +48,70 @@ public class SearchableMaze implements ISearchable {
 
     // this function returns all the possible states from the AState we got
     @Override
-    public ArrayList<AState> getAllPossible(AState state) {
+    public ArrayList<AState> getAllSuccessors(AState state) {
         // return all the neighbors that i can go from this current pos
         ArrayList<AState> possibleState = new ArrayList<AState>();
         int x = ((MazeState) state).getPos().getRowIndex();
         int y = ((MazeState) state).getPos().getColumnIndex();
-
+        double curCost = statesArray[x][y].getCost();
         //-----------------------------right
         if (inBorder(x, y + 1)) {
             if (maze.possibleToGo(x, y + 1)) {
+                statesArray[x][y + 1].setCost(curCost + 10);// regular step (ohad)
                 possibleState.add(statesArray[x][y + 1]);
 
                 //right up
                 if (inBorder(x - 1, y + 1)) {
-                    if (maze.possibleToGo(x - 1, y + 1)) {
+                    if (maze.possibleToGo(x - 1, y + 1) && !possibleState.contains(statesArray[x - 1][y + 1])) {
+                        statesArray[x - 1][y + 1].setCost(curCost + 15);// diagonal step (ohad)
                         possibleState.add(statesArray[x - 1][y + 1]);
                     }
                 }
 
-
                 // right bottom
                 if (inBorder(x + 1, y + 1)) {
-                    if (maze.possibleToGo(x + 1, y + 1)) {
+                    if (maze.possibleToGo(x + 1, y + 1) && !possibleState.contains(statesArray[x + 1][y + 1])) {
+                        statesArray[x + 1][y + 1].setCost(curCost + 15);
                         possibleState.add(statesArray[x + 1][y + 1]);
                     }
                 }
+
             }
         }
         //------------------------------left
         if (inBorder(x, y - 1)) {
             if (maze.possibleToGo(x, y - 1)) {
+                statesArray[x][y - 1].setCost(curCost + 10);
                 possibleState.add(statesArray[x][y - 1]);
 
                 //left up
                 if (inBorder(x - 1, y - 1)) {
-                    if (maze.possibleToGo(x - 1, y - 1)) {
+                    if (maze.possibleToGo(x - 1, y - 1) && !possibleState.contains(statesArray[x - 1][y - 1])) {
+                        statesArray[x - 1][y - 1].setCost(curCost + 15);
                         possibleState.add(statesArray[x - 1][y - 1]);
                     }
                 }
 
                 // left bottom
                 if (inBorder(x + 1, y - 1)) {
-                    if (maze.possibleToGo(x + 1, y - 1)) {
+                    if (maze.possibleToGo(x + 1, y - 1) && !possibleState.contains(statesArray[x + 1][y - 1])) {
+                        statesArray[x + 1][y - 1].setCost(curCost + 15);
                         possibleState.add(statesArray[x + 1][y - 1]);
                     }
                 }
+
             }
         }
         //-------------------------------up
         if (inBorder(x - 1, y)) {
             if (maze.possibleToGo(x - 1, y)) {
+                statesArray[x - 1][y].setCost(curCost + 10);
                 possibleState.add(statesArray[x - 1][y]);
 
                 //up left
                 if (inBorder(x - 1, y - 1)) {
                     if (maze.possibleToGo(x - 1, y - 1) && !possibleState.contains(statesArray[x - 1][y - 1])) {
+                        statesArray[x - 1][y - 1].setCost(curCost + 15);
                         possibleState.add(statesArray[x - 1][y - 1]);
                     }
                 }
@@ -107,26 +119,30 @@ public class SearchableMaze implements ISearchable {
                 // up right
                 if (inBorder(x - 1, y + 1)) {
                     if (maze.possibleToGo(x - 1, y + 1) && !possibleState.contains(statesArray[x - 1][y + 1])) {
+                        statesArray[x - 1][y + 1].setCost(curCost + 15);
                         possibleState.add(statesArray[x - 1][y + 1]);
                     }
                 }
+
             }
         }
         // ------------------------------bottom
         if (inBorder(x + 1, y)) {
             if (maze.possibleToGo(x + 1, y)) {
+                statesArray[x + 1][y].setCost(curCost + 10);
                 possibleState.add(statesArray[x + 1][y]);
 
                 //bottom left
                 if (inBorder(x + 1, y - 1)) {
-                    if (maze.possibleToGo(x + 1, y - 1)) {
+                    if (maze.possibleToGo(x + 1, y - 1) && !possibleState.contains(statesArray[x + 1][y - 1])) {
+                        statesArray[x + 1][y - 1].setCost(curCost + 15);
                         possibleState.add(statesArray[x + 1][y - 1]);
                     }
                 }
-
                 // bottom right
                 if (inBorder(x + 1, y + 1)) {
-                    if (maze.possibleToGo(x + 1, y + 1)) {
+                    if (maze.possibleToGo(x + 1, y + 1) && !possibleState.contains(statesArray[x + 1][y + 1])) {
+                        statesArray[x + 1][y + 1].setCost(curCost + 15);
                         possibleState.add(statesArray[x + 1][y + 1]);
                     }
                 }
@@ -141,6 +157,7 @@ public class SearchableMaze implements ISearchable {
         for (int i = 0; i < maze.getNumOfRow(); i++) {
             for (int j = 0; j < maze.getNumOfCol(); j++) {
                 statesArray[i][j].setPreState(null);
+                statesArray[i][j].setCost(10);
             }
         }
     }

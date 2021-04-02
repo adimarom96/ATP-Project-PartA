@@ -6,6 +6,8 @@ public class SimpleMazeGenerator extends AMazeGenerator {
 
     @Override
     public Maze generate(int row, int col) {
+        if (row < 2 || col < 2)
+            throw new RuntimeException("Wrong parameters !");
         Maze maze = new Maze(row, col);
         Position start = new Position(0, 0);
         Position goal = new Position(row - 1, col - 1);
