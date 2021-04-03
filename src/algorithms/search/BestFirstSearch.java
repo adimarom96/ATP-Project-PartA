@@ -21,8 +21,9 @@ public class BestFirstSearch extends BreadthFirstSearch {
     // constructor
     public BestFirstSearch() {
         //TODO: FIX the priority q
-        super("BestFirstSearch", new PriorityQueue<AState>(2,new costCompare()));
+        super("BestFirstSearch", new PriorityQueue<AState>(2, new costCompare()));
         //super("BestFS", new PriorityQueue<AState>((AState a1, AState a2) -> Double.compare(a2.getCost(), a1.getCost())));
         //super("BestFS", new PriorityQueue<AState>(BestFirstSearch::comp));
+        isBest = true;
     }
 }

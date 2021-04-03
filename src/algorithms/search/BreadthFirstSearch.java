@@ -1,12 +1,14 @@
 package algorithms.search;
 
+import algorithms.mazeGenerators.Position;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
 public class BreadthFirstSearch extends ASearchingAlgorithm {
     protected Queue<AState> state_q;
-
+    static boolean isBest = false;
     // constructor
     public BreadthFirstSearch() {
         super("BFS");
@@ -30,14 +32,13 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
         // if this is not the first try to solve the maze we need to first reset all the PreState adn costs
         if (count != 0) {
             problem.restStates();
-            count = 0;
         }
         AState start = problem.getStart();
         AState current;
         AState prev = start;
         AState goal = problem.getGoal();
         count++;
-        this.state_q = new LinkedList<>(); // q that will hold all the possible moves that we didn't visited
+        //this.state_q = new LinkedList<>(); // q that will hold all the possible moves that we didn't visited
         ArrayList<AState> neighbors; // all the possible moves for the current state
         Solution sol = new Solution(goal);
         state_q.add(start);
@@ -51,8 +52,8 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
             prev = state_q.remove();
             neighbors = problem.getAllSuccessors(prev); // get all the neighbors
             for (AState s : neighbors // for each neighbor do:
-            ) {
-                if (s.getPreState() == null) { // check which of the neighbors has not been handle
+            ) {// maybe check if already een in the q
+                if (s.getPreState() == null && !s.equals(start)) { // check which of the neighbors has not been handle
                     s.setPreState(current);
                     if (s.equals(goal)) { // if we found the wanted state
                         numberOfNodesEvaluated++;
