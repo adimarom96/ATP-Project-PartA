@@ -6,7 +6,7 @@ public abstract class AMazeGenerator implements IMazeGenerator {
     public long measureAlgorithmTimeMillis(int row, int col) {
         long start_time, end_time;
         start_time = System.currentTimeMillis();
-        generate(row, col); // TODO: check if need to catch the return value
+        generate(row, col);
         end_time = System.currentTimeMillis();
         return end_time - start_time;
     }

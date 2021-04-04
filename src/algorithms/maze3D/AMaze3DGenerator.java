@@ -6,7 +6,7 @@ public abstract class AMaze3DGenerator implements IMaze3DGenerator {
     public long measureAlgorithmTimeMillis(int depth, int row, int column) {
         long start_time, end_time;
         start_time = System.currentTimeMillis();
-        generate(depth, row, column); // TODO: check if need to catch the return value
+        generate(depth, row, column);
         end_time = System.currentTimeMillis();
         return end_time - start_time;
     }

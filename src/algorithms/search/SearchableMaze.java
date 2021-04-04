@@ -39,7 +39,7 @@ public class SearchableMaze implements ISearchable {
 
     @Override
     public AState getGoal() {
-        MazeState state = new MazeState(1, null, maze.getGoalPosition()); //TODO: maybe need -1 insted of 1
+        MazeState state = new MazeState(1, null, maze.getGoalPosition());
         return state;
     }
 
@@ -173,6 +173,8 @@ public class SearchableMaze implements ISearchable {
                 statesArray[i][j].setCost(regularStepCost);//regularStepCost
             }
         }
+        Position p = maze.getStartPosition();
+        statesArray[p.getRowIndex()][p.getColumnIndex()].setCost(0);
     }
 
     private void updateCost(int x, int y, double newCost) {
@@ -186,5 +188,6 @@ public class SearchableMaze implements ISearchable {
             statesArray[x][y].setCost(newCost);
             statesArray[x][y].setPreState(null);
         }
+
     }
 }

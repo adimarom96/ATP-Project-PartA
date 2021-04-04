@@ -57,7 +57,7 @@ public class MyMazeGenerator extends AMazeGenerator {
 
         SetPos(maze);
         if (maze.getGoalPosition() == null || maze.getStartPosition() == null) {
-            maze = this.generate(row, col);// TODO:
+            maze = this.generate(row, col);// TODO: check if still nessery
         }
         return maze;
     }

@@ -4,12 +4,12 @@ import algorithms.mazeGenerators.IMazeGenerator;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
 import algorithms.mazeGenerators.Position;
-import javafx.geometry.Pos;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class BestFirstSearchTest {
 
@@ -61,5 +61,37 @@ class BestFirstSearchTest {
         assertEquals(g2.getColumnIndex(), g.getColumnIndex());
         assertEquals(g2.getRowIndex(), g.getRowIndex());
         System.out.println("End test endPoint");
+    }
+
+    @Test
+    void solveMaze() throws Exception {
+        System.out.println("start test solveMaze");
+        IMazeGenerator mg = new MyMazeGenerator();
+        int x = 5;
+        Maze maze = mg.generate(4, 5);
+        int[][] map = {
+                {0, 0, 0, 0, 0},
+                {0, 0, 1, 1, 0},
+                {1, 0, 0, 1, 0},
+                {1, 1, 0, 0, 0}
+        };
+        maze.setMazeArr(map);
+        maze.setStartPosition(new Position(0, 0));
+        maze.setGoalPosition(new Position(2, 4));
+        SearchableMaze searchableMaze = new SearchableMaze(maze);
+        BestFirstSearch best = new BestFirstSearch();
+        BreadthFirstSearch bfs = new BreadthFirstSearch();
+
+        //bfs check
+        Solution solution1 = bfs.solve(searchableMaze);
+        ArrayList<AState> solutionPath1 = solution1.getSolutionPath();
+        assertEquals(60,solutionPath1.get(solutionPath1.size() - 1).getCost());
+
+        // best
+        Solution solution = best.solve(searchableMaze);
+        ArrayList<AState> solutionPath = solution.getSolutionPath();
+        assertEquals(55,solutionPath.get(solutionPath.size() - 1).getCost());
+
+        System.out.println("End test solveMaze");
     }
 }

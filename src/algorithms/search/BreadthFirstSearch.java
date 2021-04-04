@@ -8,12 +8,13 @@ import java.util.Queue;
 
 public class BreadthFirstSearch extends ASearchingAlgorithm {
     protected Queue<AState> state_q;
-    static boolean isBest = false;
+
     // constructor
     public BreadthFirstSearch() {
         super("BFS");
         numberOfNodesEvaluated = 0;
         this.state_q = new LinkedList<>();
+        isBest = false;
     }
 
     // constructor for the successor (Best)
@@ -44,8 +45,10 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
         state_q.add(start);
         while (!state_q.isEmpty()) { // while this q is not empty we will keep run
             current = state_q.peek();
+
             if (current.equals(goal)) { // if we found the wanted state
                 goal.setPreState(prev);
+                //goal.setCost(goal.getCost()-10); // we want to reduce the price of the first node
                 numberOfNodesEvaluated++;
                 break;
             }
@@ -58,6 +61,7 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
                     if (s.equals(goal)) { // if we found the wanted state
                         numberOfNodesEvaluated++;
                         goal = s;
+                       // goal.setCost(goal.getCost()-10); // we want to reduce the price of the first node
                         return new Solution(goal);
                     }
                     state_q.add(s);

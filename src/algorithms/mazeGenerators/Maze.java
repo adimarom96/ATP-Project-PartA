@@ -10,7 +10,7 @@ public class Maze {
     private int numOfRow;
     private int numOfCol;
     int[][] mazeArr;
-
+//todo: remove this function below
     public void setMazeArr(int[][] mazeArr) {
         this.mazeArr = mazeArr;
     }

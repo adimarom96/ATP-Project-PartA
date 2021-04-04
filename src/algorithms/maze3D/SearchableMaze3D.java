@@ -39,7 +39,6 @@ public class SearchableMaze3D implements ISearchable {
     @Override
     public AState getGoal() {
         Maze3DState state = new Maze3DState(1, null, maze.getGoalPosition());
-        //TODO: maybe need -1 instead of 1
         return state;
     }
 

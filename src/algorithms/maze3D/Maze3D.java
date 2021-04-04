@@ -47,7 +47,7 @@ public class Maze3D {
 
     // this function checks if the position we got is good to go ( =0 )
     public Boolean possibleToGo(int z, int x, int y) {
-        if (map[z][x][y] == 0 || map[z][x][y] == 5)// TODO: remove the =5
+        if (map[z][x][y] == 0)
             return true;
         return false;
     }
@@ -67,7 +67,8 @@ public class Maze3D {
             if (z != numOfDepth - 1) {
                 // print ----- between every 2 surfaces in the depth
                 String str = "-";
-                System.out.println(str.repeat(2 * numOfCol + 3));
+                //System.out.println(str.repeat(2 * numOfCol + 3));
+                System.out.println(new String(new char[2 * numOfCol + 3]).replace("\0","-"));
             }
         }
         System.out.println("}");

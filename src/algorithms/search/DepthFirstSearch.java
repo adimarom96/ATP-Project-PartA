@@ -5,6 +5,7 @@ import java.util.Stack;
 public class DepthFirstSearch extends ASearchingAlgorithm {
     public DepthFirstSearch() {
         super("DFS");
+        isBest = false;
     }
 
     @Override
