@@ -18,9 +18,12 @@ public class Position {
         return col;
     }
 
+    /**
+     * format of {row,column}
+     * @return string of the position.
+     */
     @Override
     public String toString() {
-        // print in format of {row,column}
         return "{" + row + "," + col + "}";
     }
 }

@@ -4,6 +4,11 @@ import java.util.LinkedList;
 import java.util.Random;
 
 public class MyMazeGenerator extends AMazeGenerator {
+    /**
+     * this function gets maze and set him all to 1, all walls
+     * @param maze
+     * @return maze with all 1's
+     */
     private Maze init_with_one(Maze maze) {
         for (int i = 0; i < maze.getNumOfRow(); i++) {
             for (int j = 0; j < maze.getNumOfCol(); j++) {
@@ -13,6 +18,12 @@ public class MyMazeGenerator extends AMazeGenerator {
         return maze;
     }
 
+    /**
+     * This function makes way throw all the 1's in the maze. using Prim's algorithm to breaks walls and set them to 0 instead of 1.
+     * @param row
+     * @param col
+     * @return a new maze with possible wat from the start to the end point.
+     */
     @Override
     public Maze generate(int row, int col) {
         if (row < 2 || col < 2)
@@ -21,8 +32,6 @@ public class MyMazeGenerator extends AMazeGenerator {
         int x, y;
         LinkedList<int[]> designated = new LinkedList<>();// list of arrays that contain the possible path to the next move
         final Random random = new Random();
-       /* row = row + 1;
-        col = col + 1;*/
         Maze maze = init_with_one(new Maze(row, col));// init with all 1
         x = 0;
         y = random.nextInt(col);
@@ -43,38 +52,31 @@ public class MyMazeGenerator extends AMazeGenerator {
                     designated.add(new int[]{x, y + 1, x, y + 2});
             }
         }
-
-        /*
-        //slice the array
-        int[][] copyarr = new int[row - 1][col - 1];
-        for (int i = 0; i < row - 1; i++) {
-            for (int j = 0; j < col - 1; j++) {
-                copyarr[i][j] = maze.mazeArr[i][j];
-            }
-        }
-        Maze new_maze = new Maze(row - 1, col - 1);
-        new_maze.mazeArr = copyarr;*/
-
-        SetPos(maze);
-        if (maze.getGoalPosition() == null || maze.getStartPosition() == null) {
-            maze = this.generate(row, col);// TODO: check if still nessery
-        }
+        SetPos(maze); // set start and end points.
         return maze;
     }
 
+    /**
+     * This function gets a maze and set his start and end points.
+     * @param maze
+     */
     private void SetPos(Maze maze) {
+        // run throw the first line and look up for the first 0. Then set him to start point.
         for (int i = 0; i < maze.getNumOfCol(); i++) {
             if (maze.mazeArr[0][i] == 0) {
                 maze.setStartPosition(new Position(0, i));
                 break;
             }
         }
+        // run throw the last line and look up for the first 0. Then set him to end point.
         for (int i = maze.getNumOfCol() - 1; i > 0; i--) {
             if (maze.mazeArr[maze.getNumOfRow() - 1][i] == 0) {
                 maze.setGoalPosition(new Position(maze.getNumOfRow() - 1, i));
                 break;
             }
         }
+        // if the last "for" didn't manage to find a 0,
+        // run throw the "before last" line and look up for the first 0. Then set him to end point.
         for (int i = maze.getNumOfCol() - 1; i > 0; i--) {
             if (maze.mazeArr[maze.getNumOfRow() - 2][i] == 0) {
                 maze.setGoalPosition(new Position(maze.getNumOfRow() - 1, i));

@@ -6,8 +6,7 @@ import java.util.Queue;
 
 public class BestFirstSearch extends BreadthFirstSearch {
 
-/*    public static class costCompare implements Comparator<AState> {
-
+    public static class costCompare implements Comparator<AState> {
         public int compare(AState t0, AState t1) {
             if (t0.getCost() > t1.getCost())
                 return 1;
@@ -15,14 +14,13 @@ public class BestFirstSearch extends BreadthFirstSearch {
                 return -1;
             return 0;
         }
-    }*/
+    }
 
     // constructor
     public BestFirstSearch() {
-        //TODO: FIX the priority q
+
         super("BestFirstSearch", new PriorityQueue<AState>(2, new costCompare()));
         //super("BestFS", new PriorityQueue<AState>((AState a1, AState a2) -> Double.compare(a2.getCost(), a1.getCost())));
-        //super("BestFS", new PriorityQueue<AState>(BestFirstSearch::comp));
         isBest = true;
     }
 }

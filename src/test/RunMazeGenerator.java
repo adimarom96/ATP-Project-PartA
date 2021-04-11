@@ -12,8 +12,8 @@ public class RunMazeGenerator {
     public static void main(String[] args) {
         //testMazeGenerator(new EmptyMazeGenerator());
         //testMazeGenerator(new SimpleMazeGenerator());
-        testMazeGenerator(new MyMazeGenerator());
-        testMaze3DGenerator(new MyMaze3DGenerator());
+        //testMazeGenerator(new MyMazeGenerator());
+        //testMaze3DGenerator(new MyMaze3DGenerator());
     }
 
     private static void testMazeGenerator(IMazeGenerator mazeGenerator) {
@@ -21,7 +21,7 @@ public class RunMazeGenerator {
         System.out.println(String.format("Maze generation time(ms): %s", mazeGenerator.measureAlgorithmTimeMillis(1000, 1000)));
         // generate another maze
 
-        Maze maze = mazeGenerator.generate(3/*rows*/, 3/*columns*/);
+        Maze maze = mazeGenerator.generate(2/*rows*/, 2/*columns*/);
         System.out.println("Print 2D");
         maze.print();
 

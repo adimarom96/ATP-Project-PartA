@@ -2,6 +2,12 @@ package algorithms.mazeGenerators;
 
 public class EmptyMazeGenerator extends AMazeGenerator {
 
+    /**
+     *
+     * @param row
+     * @param col
+     * @return new maze with all 0 - empty maze.
+     */
     @Override
     public Maze generate(int row, int col) {
         if (row < 2 || col < 2)

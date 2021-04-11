@@ -18,6 +18,8 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
 
     @Override
     public Maze3D generate(int depth, int row, int column) {
+        if (row < 2 || column < 2 || depth < 2)
+            throw new RuntimeException("Wrong parameters !");
         //initialize
         int z, x, y;
         LinkedList<int[]> designated = new LinkedList<>();// list of arrays that contain the possible path to the next move
@@ -69,7 +71,8 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
             }
         }
         // set goal point
-        outerloop: // label to break the nested loop
+        outerloop:
+        // label to break the nested loop
         for (int i = maze.numOfCol - 1; i > 0; i--) {
             for (int j = maze.numOfRow - 1; j > 0; j--) {
                 if (maze.map[maze.numOfDepth - 1][j][i] == 0) {
@@ -83,6 +86,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
                     break outerloop; // break both loops !
                 }
             }
+            //if here so there is no end point!
         }
     }
 }

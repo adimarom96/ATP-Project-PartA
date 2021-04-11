@@ -1,4 +1,4 @@
-package algorithms.search;
+/*package algorithms.search;
 
 import java.util.Comparator;
 
@@ -11,4 +11,4 @@ public class costCompare implements Comparator<AState> {
             return -1;
         return 0;
     }
-}
+}*/

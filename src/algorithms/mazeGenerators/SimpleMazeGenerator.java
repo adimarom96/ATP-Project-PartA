@@ -4,6 +4,12 @@ import java.util.Random;
 
 public class SimpleMazeGenerator extends AMazeGenerator {
 
+    /**
+     * This function randomly set 0 and 1 all over the maze.
+     * @param row
+     * @param col
+     * @return a randomly maze with possible way
+     */
     @Override
     public Maze generate(int row, int col) {
         if (row < 2 || col < 2)
