@@ -1,7 +1,9 @@
 package test;
+
 import algorithms.maze3D.IMaze3DGenerator;
 import algorithms.maze3D.Maze3D;
 import algorithms.maze3D.MyMaze3DGenerator;
+import algorithms.maze3D.Position3D;
 import algorithms.mazeGenerators.*;
 
 import java.util.Random;
@@ -10,8 +12,8 @@ public class RunMazeGenerator {
     public static void main(String[] args) {
         //testMazeGenerator(new EmptyMazeGenerator());
         //testMazeGenerator(new SimpleMazeGenerator());
-        //testMazeGenerator(new MyMazeGenerator());
-        //testMaze3DGenerator(new MyMaze3DGenerator());
+        testMazeGenerator(new MyMazeGenerator());
+        testMaze3DGenerator(new MyMaze3DGenerator());
     }
 
     private static void testMazeGenerator(IMazeGenerator mazeGenerator) {
@@ -34,19 +36,20 @@ public class RunMazeGenerator {
 
     private static void testMaze3DGenerator(IMaze3DGenerator maze3DGenerator) {
         // prints the time it takes the algorithm to run
-        System.out.println(String.format("Maze generation time(ms): %s", maze3DGenerator.measureAlgorithmTimeMillis(150, 150, 150)));
+        int size = 20;
+        //System.out.println(String.format("Maze generation time(ms): %s", maze3DGenerator.measureAlgorithmTimeMillis(size, size, size)));
         // generate another maze
         System.out.println("Print 3D");
-        //Maze3D maze3d = maze3DGenerator.generate(50/*depth*/,50/*rows*/, 50/*columns*/);
-        //maze3d.print();
+        Maze3D maze3d = maze3DGenerator.generate(20/*depth*/, 20/*rows*/, 20/*columns*/);
+        maze3d.print();
 
-        /*// prints the maze
+        // prints the maze
         System.out.println("in main - run maze generator");
         // get the maze entrance
-        Position startPosition = maze.getStartPosition();
+        Position3D startPosition = maze3d.getStartPosition();
         // print the start position
-        System.out.println(String.format("Start Position: %s", startPosition)); // format "{row,column}"
+        System.out.println(String.format("Start Position: %s", startPosition)); // format "{depth,row,column}"
         // prints the maze exit position
-        System.out.println(String.format("Goal Position: %s", maze.getGoalPosition()));*/
+        System.out.println(String.format("Goal Position: %s", maze3d.getGoalPosition()));
     }
 }

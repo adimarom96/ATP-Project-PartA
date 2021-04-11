@@ -1,12 +1,15 @@
 package test;
+
 import algorithms.mazeGenerators.*;
 import algorithms.search.*;
+
 import java.util.ArrayList;
+
 public class RunSearchOnMaze {
     public static void main(String[] args) {
         IMazeGenerator mg = new MyMazeGenerator();
-        int x = 5;
-        Maze maze = mg.generate(4, x);
+        int x = 4;
+        Maze maze = mg.generate(x, x);
         System.out.println("size: " + x + "x" + x);
 //        int[][] map ={{ 1, 0, 0, 0, 0, 0, 1, 0, 0, 0 },
 //                      { 1, 0, 1, 1, 1, 0, 1, 1, 1, 0 },
@@ -19,14 +22,14 @@ public class RunSearchOnMaze {
 //                      { 1, 0, 0, 0, 1, 0, 0, 0, 0, 0 },
 //                      { 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 }};
         int[][] map = {
-                {0, 0, 0, 0, 0},
-                {0, 0, 1, 1, 0},
-                {1, 0, 0, 1, 0},
-                {1, 1, 0, 0, 0}
+                {1, 0, 0, 0},
+                {1, 0, 1, 1},
+                {1, 0, 0, 0},
+                {1, 1, 1, 0}
         };
         maze.setMazeArr(map);
         maze.setStartPosition(new Position(0, 0));
-        maze.setGoalPosition(new Position(2, 4));
+        maze.setGoalPosition(new Position(3, 3));
         maze.print();
         SearchableMaze searchableMaze = new SearchableMaze(maze);
         //MazeState ms = new MazeState(new Position(3,3));

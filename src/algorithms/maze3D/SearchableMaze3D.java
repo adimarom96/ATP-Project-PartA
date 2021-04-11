@@ -22,8 +22,8 @@ public class SearchableMaze3D implements ISearchable {
         for (int z = 0; z < maze.getNumOfDepth(); z++) {
             for (int i = 0; i < maze.getNumOfRow(); i++) {
                 for (int j = 0; j < maze.getNumOfCol(); j++) {
-                    x = random.nextInt(50);// random for the cost of each state
-                    statesArray1[z][i][j] = new Maze3DState(x/*cost*/, null, new Position3D(z, i, j));
+                    //x = random.nextInt(50);// random for the cost of each state
+                    statesArray1[z][i][j] = new Maze3DState(10/*cost*/, null, new Position3D(z, i, j));
                 }
             }
         }

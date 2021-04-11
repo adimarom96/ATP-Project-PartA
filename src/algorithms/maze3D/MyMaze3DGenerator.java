@@ -64,7 +64,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
         for (int i = 0; i < maze.numOfCol; i++) {
             if (maze.map[0][0][i] == 0) {
                 maze.setStartPosition(new Position3D(0, 0, i));
-                maze.map[0][0][i] = 4;
+                maze.map[0][0][i] = 0;
                 break;
             }
         }
@@ -74,12 +74,12 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
             for (int j = maze.numOfRow - 1; j > 0; j--) {
                 if (maze.map[maze.numOfDepth - 1][j][i] == 0) {
                     maze.setGoalPosition(new Position3D(maze.numOfDepth - 1, j, i));
-                    maze.map[maze.numOfDepth - 1][j][i] = 5;
+                    maze.map[maze.numOfDepth - 1][j][i] = 0;
                     break outerloop; // break both loops !
                 }
                 if (maze.map[maze.numOfDepth - 2][j][i] == 0) {
                     maze.setGoalPosition(new Position3D(maze.numOfDepth - 1, j, i));
-                    maze.map[maze.numOfDepth - 1][j][i] = 5;
+                    maze.map[maze.numOfDepth - 1][j][i] = 0;
                     break outerloop; // break both loops !
                 }
             }

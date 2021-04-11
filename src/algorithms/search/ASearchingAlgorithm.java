@@ -18,11 +18,6 @@ public abstract class ASearchingAlgorithm implements  ISearchingAlgorithm{
         return numberOfNodesEvaluated;
     }
 
-    // todo: delete?
-    public void setNumOfNode(int numOfNode) {
-        this.numberOfNodesEvaluated = numOfNode;
-    }
-
     public ASearchingAlgorithm(String name) {
         this.name = name;
 

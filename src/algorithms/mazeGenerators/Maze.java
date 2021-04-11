@@ -55,12 +55,12 @@ public class Maze {
     }
 
     public void print() {
-        //TODO: remove index !!!
+/*        //TODO: remove index !!!
         System.out.print("   ");
         for (int i = 0; i < numOfRow; i++) {
             System.out.print(" " + i);
         }
-        System.out.println("");
+        System.out.println("");*/
         for (int i = 0; i < numOfRow; i++) {
             System.out.print(i + " { "); // new row
             for (int j = 0; j < numOfCol; j++) {
