@@ -1,21 +1,20 @@
 package algorithms.search;
 
+import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class BestFirstSearch extends BreadthFirstSearch {
 
-/*    // private function that we send with the queue so it know how to compare between 2 elements
-    private static int comp(AState s1, AState s2){
-        return (int)(s1.getCost() - s2.getCost());
+/*    public static class costCompare implements Comparator<AState> {
 
-        if(s1.getCost()>s2.getCost()){
-            return 1;
+        public int compare(AState t0, AState t1) {
+            if (t0.getCost() > t1.getCost())
+                return 1;
+            else if (t0.getCost() < t1.getCost())
+                return -1;
+            return 0;
         }
-        if(s1.getCost()<s2.getCost()){
-            return -1;
-        }
-        return 0;
     }*/
 
     // constructor

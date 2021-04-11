@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class RunSearchOnMaze3D {
     public static void main(String[] args) {
         IMaze3DGenerator mg3D = new MyMaze3DGenerator();
-        int x = 10;
+        int x = 8;
         Maze3D maze3d = mg3D.generate(x, x, x);
         maze3d.print();
         SearchableMaze3D searchableMaze3D = new SearchableMaze3D(maze3d);
@@ -30,5 +30,6 @@ public class RunSearchOnMaze3D {
         for (int i = 0; i < solutionPath.size(); i++) {
             System.out.println(String.format("%s.%s", i, solutionPath.get(i)));
         }
+        System.out.println("-----------------------");
     }
 }

@@ -8,29 +8,20 @@ import java.util.ArrayList;
 public class RunSearchOnMaze {
     public static void main(String[] args) {
         IMazeGenerator mg = new MyMazeGenerator();
-        int x = 4;
+        int x = 1000;
         Maze maze = mg.generate(x, x);
         System.out.println("size: " + x + "x" + x);
-//        int[][] map ={{ 1, 0, 0, 0, 0, 0, 1, 0, 0, 0 },
-//                      { 1, 0, 1, 1, 1, 0, 1, 1, 1, 0 },
-//                      { 0, 0, 0, 0, 0, 0, 1, 0, 0, 0 },
-//                      { 1, 0, 1, 0, 1, 0, 1, 0, 1, 1 },
-//                      { 1, 0, 0, 0, 0, 0, 1, 0, 0, 0 },
-//                      { 1, 0, 1, 1, 1, 1, 1, 1, 1, 0 },
-//                      { 1, 0, 1, 0, 0, 0, 0, 0, 1, 0 },
-//                      { 1, 0, 1, 0, 1, 0, 1, 1, 1, 0 },
-//                      { 1, 0, 0, 0, 1, 0, 0, 0, 0, 0 },
-//                      { 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 }};
-        int[][] map = {
-                {1, 0, 0, 0},
-                {1, 0, 1, 1},
-                {1, 0, 0, 0},
-                {1, 1, 1, 0}
+/*        int[][] map = {
+                {1, 0, 0, 0, 0},
+                {1, 0, 1, 1, 0},
+                {1, 0, 0, 0, 0},
+                {1, 0, 1, 0, 0},
+                {1, 0, 1, 0, 0}
         };
         maze.setMazeArr(map);
-        maze.setStartPosition(new Position(0, 0));
-        maze.setGoalPosition(new Position(3, 3));
-        maze.print();
+        maze.setStartPosition(new Position(0, 1));
+        maze.setGoalPosition(new Position(4, 1));*/
+        //maze.print();
         SearchableMaze searchableMaze = new SearchableMaze(maze);
         //MazeState ms = new MazeState(new Position(3,3));
         //ArrayList<AState> possibleStates = searchableMaze.getAllSuccessors(ms);
@@ -39,7 +30,7 @@ public class RunSearchOnMaze {
         //while(bfs.solve(searchableMaze).getSolutionCost()==best.solve(searchableMaze).getSolutionCost()){}
 
         solveProblem(searchableMaze, new BreadthFirstSearch());
-        //solveProblem(searchableMaze, new DepthFirstSearch());
+        solveProblem(searchableMaze, new DepthFirstSearch());
         solveProblem(searchableMaze, new BestFirstSearch());
     }
 
@@ -51,8 +42,10 @@ public class RunSearchOnMaze {
         System.out.println("Solution path:");
         ArrayList<AState> solutionPath = solution.getSolutionPath();
         for (int i = 0; i < solutionPath.size(); i++) {
-            System.out.println(String.format("%s. %s", i, solutionPath.get(i)));
+            //System.out.println(String.format("%s. %s", i, solutionPath.get(i)));
         }
+        System.out.println("steps num: " + solutionPath.size());
         System.out.println("final cost " + solutionPath.get(solutionPath.size() - 1).getCost());
+        System.out.println("-----------------------");
     }
 }

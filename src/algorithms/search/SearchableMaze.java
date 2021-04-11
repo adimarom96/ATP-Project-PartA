@@ -11,7 +11,7 @@ import static algorithms.search.BreadthFirstSearch.isBest;
 public class SearchableMaze implements ISearchable {
     Maze maze;
     MazeState[][] statesArray;
-    static double regularStepCost = 10;
+    static double regularStepCost = 10;//new ohad !!
     static double diagonalCost = 15;
 
     // constructor
@@ -22,7 +22,7 @@ public class SearchableMaze implements ISearchable {
         MazeState[][] statesArray1 = new MazeState[maze.getNumOfRow()][maze.getNumOfCol()];
         for (int i = 0; i < maze.getNumOfRow(); i++) {
             for (int j = 0; j < maze.getNumOfCol(); j++) {
-                cost = regularStepCost; // regular step (ohad)
+                cost = regularStepCost;
                 statesArray1[i][j] = new MazeState(cost, null, new Position(i, j));
             }
         }
@@ -170,6 +170,7 @@ public class SearchableMaze implements ISearchable {
         for (int i = 0; i < maze.getNumOfRow(); i++) {
             for (int j = 0; j < maze.getNumOfCol(); j++) {
                 statesArray[i][j].setPreState(null);
+                statesArray[i][j].setVisited(false);
                 statesArray[i][j].setCost(regularStepCost);//regularStepCost
             }
         }
@@ -180,13 +181,15 @@ public class SearchableMaze implements ISearchable {
     private void updateCost(int x, int y, double newCost) {
         // new cost is the cost of the current cell + the cost of the way to him
         double curCost = statesArray[x][y].getCost();
-        if (curCost == regularStepCost) {
+        if (curCost == regularStepCost && !statesArray[x][y].isVisited()) {
+            statesArray[x][y].setVisited(true);
             statesArray[x][y].setCost(newCost);
             return;
         }
         if (isBest && newCost < curCost) {
             statesArray[x][y].setCost(newCost);
             statesArray[x][y].setPreState(null);
+
         }
 
     }

@@ -105,6 +105,7 @@ public class SearchableMaze3D implements ISearchable {
             for (int i = 0; i < maze.getNumOfRow(); i++) {
                 for (int j = 0; j < maze.getNumOfCol(); j++) {
                     statesArray[z][i][j].setPreState(null);
+                    statesArray[z][i][j].setVisited(false);
                 }
             }
         }

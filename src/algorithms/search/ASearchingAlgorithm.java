@@ -1,10 +1,11 @@
 package algorithms.search;
 
-public abstract class ASearchingAlgorithm implements  ISearchingAlgorithm{
-    static  int count=0;
+public abstract class ASearchingAlgorithm implements ISearchingAlgorithm {
+    static int count = 0;
     protected String name;
-    protected  int numberOfNodesEvaluated;
+    protected int numberOfNodesEvaluated;
     static boolean isBest = false;
+
     @Override
     public String getName() {
         return name;

@@ -64,10 +64,9 @@ class BestFirstSearchTest {
     }
 
     @Test
-    void solveMaze() throws Exception {
-        System.out.println("start test solveMaze");
+    void solveMaze1() throws Exception {
+        System.out.println("start test solveMaze1");
         IMazeGenerator mg = new MyMazeGenerator();
-        int x = 5;
         Maze maze = mg.generate(4, 5);
         int[][] map = {
                 {0, 0, 0, 0, 0},
@@ -85,13 +84,45 @@ class BestFirstSearchTest {
         //bfs check
         Solution solution1 = bfs.solve(searchableMaze);
         ArrayList<AState> solutionPath1 = solution1.getSolutionPath();
-        assertEquals(60,solutionPath1.get(solutionPath1.size() - 1).getCost());
+        assertEquals(60, solutionPath1.get(solutionPath1.size() - 1).getCost());
 
         // best
         Solution solution = best.solve(searchableMaze);
         ArrayList<AState> solutionPath = solution.getSolutionPath();
-        assertEquals(55,solutionPath.get(solutionPath.size() - 1).getCost());
+        assertEquals(55, solutionPath.get(solutionPath.size() - 1).getCost());
 
-        System.out.println("End test solveMaze");
+        System.out.println("End test solveMaze1");
+    }
+
+    @Test
+    void solveMaze2() throws Exception {
+        System.out.println("start test solveMaze2");
+        IMazeGenerator mg = new MyMazeGenerator();
+        Maze maze = mg.generate(5, 5);
+        int[][] map = {
+                {1, 0, 0, 0, 0},
+                {1, 0, 1, 1, 0},
+                {1, 0, 0, 0, 0},
+                {1, 0, 1, 0, 0},
+                {1, 0, 1, 0, 0}
+        };
+        maze.setMazeArr(map);
+        maze.setStartPosition(new Position(0, 1));
+        maze.setGoalPosition(new Position(4, 1));
+        SearchableMaze searchableMaze = new SearchableMaze(maze);
+        BestFirstSearch best = new BestFirstSearch();
+        BreadthFirstSearch bfs = new BreadthFirstSearch();
+
+        //bfs check
+        Solution solution1 = bfs.solve(searchableMaze);
+        ArrayList<AState> solutionPath1 = solution1.getSolutionPath();
+        assertEquals(50, solutionPath1.get(solutionPath1.size() - 1).getCost());
+
+        // best
+        Solution solution = best.solve(searchableMaze);
+        ArrayList<AState> solutionPath = solution.getSolutionPath();
+        assertEquals(40, solutionPath.get(solutionPath.size() - 1).getCost());
+
+        System.out.println("End test solveMaze2");
     }
 }
