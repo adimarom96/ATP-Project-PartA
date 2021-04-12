@@ -9,10 +9,11 @@ import java.util.Random;
 import static algorithms.search.BreadthFirstSearch.isBest;
 
 public class SearchableMaze implements ISearchable {
-    Maze maze;
-    MazeState[][] statesArray;
-    static double regularStepCost = 10;//new ohad !!
+    static double regularStepCost = 10;
     static double diagonalCost = 15;
+
+    private Maze maze;// new private!
+    private MazeState[][] statesArray;// new private!
 
     // constructor
     public SearchableMaze(Maze maze) {
@@ -43,7 +44,12 @@ public class SearchableMaze implements ISearchable {
         return state;
     }
 
-    // this function checks if the position we got is legal
+    /**
+     * this function checks if the position we got is legal.
+     * @param x
+     * @param y
+     * @return
+     */
     private boolean inBorder(int x, int y) {
         if (x > -1 && x < maze.getNumOfRow()) {
             return y > -1 && y < maze.getNumOfCol();
@@ -51,7 +57,11 @@ public class SearchableMaze implements ISearchable {
         return false;
     }
 
-    // this function returns all the possible states from the AState we got
+    /**
+     * this function returns all the possible states from the AState we got
+     * @param state
+     * @return ArrayList of all the neighbors we can travel to from the state param
+     */
     @Override
     public ArrayList<AState> getAllSuccessors(AState state) {
         // return all the neighbors that i can go from this current pos
@@ -164,7 +174,9 @@ public class SearchableMaze implements ISearchable {
         return possibleState;
     }
 
-    // this function reset all the "preState" board before we try to solve it again.
+    /**
+     * this function reset all the "preState" board before we try to solve it again.
+     */
     @Override
     public void restStates() {
         for (int i = 0; i < maze.getNumOfRow(); i++) {
@@ -178,19 +190,24 @@ public class SearchableMaze implements ISearchable {
         statesArray[p.getRowIndex()][p.getColumnIndex()].setCost(0);
     }
 
+    /**
+     * This function gets location and new cost, checks if need to update to the new cost.
+     * @param x
+     * @param y
+     * @param newCost
+     */
     private void updateCost(int x, int y, double newCost) {
         // new cost is the cost of the current cell + the cost of the way to him
         double curCost = statesArray[x][y].getCost();
-        if (curCost == regularStepCost && !statesArray[x][y].isVisited()) {
+        if (curCost == regularStepCost && !statesArray[x][y].isVisited()) {//if not visited and has original cost
             statesArray[x][y].setVisited(true);
             statesArray[x][y].setCost(newCost);
             return;
         }
-        if (isBest && newCost < curCost) {
+        if (isBest && newCost < curCost) { // if this is the best algorithm  and the update is better.
             statesArray[x][y].setCost(newCost);
             statesArray[x][y].setPreState(null);
 
         }
-
     }
 }

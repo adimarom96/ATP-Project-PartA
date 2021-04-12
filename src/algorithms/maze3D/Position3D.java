@@ -1,4 +1,5 @@
 package algorithms.maze3D;
+
 public class Position3D {
     private int row;
     private int col;
@@ -23,7 +24,10 @@ public class Position3D {
         return depth;
     }
 
-    // print in format of {depth,row,column}
+    /**
+     * format of {depth,row,column}
+     * @return string of the position.
+     */
     @Override
     public String toString() {
         return "{" + depth + "," + row + "," + col + "}";

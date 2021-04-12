@@ -4,7 +4,11 @@ import java.util.LinkedList;
 import java.util.Random;
 
 public class MyMaze3DGenerator extends AMaze3DGenerator {
-    // init all the maze with "1" - all walls
+    /**
+     * this function gets maze and set him all to 1, all walls.
+     * @param maze
+     * @return maze with all 1's
+     */
     private Maze3D init_with_one(Maze3D maze) {
         for (int z = 0; z < maze.numOfDepth; z++) {
             for (int i = 0; i < maze.numOfRow; i++) {
@@ -16,6 +20,13 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
         return maze;
     }
 
+    /**
+     * This function makes way throw all the 1's in the maze. using Prim's algorithm to breaks walls and set them to 0 instead of 1.
+     * @param depth
+     * @param row
+     * @param column
+     * @return a new maze with possible way from the start to the end point.
+     */
     @Override
     public Maze3D generate(int depth, int row, int column) {
         if (row < 2 || column < 2 || depth < 2)
@@ -61,6 +72,10 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
         return maze;
     }
 
+    /**
+     * This function gets a maze and set his start and end points.
+     * @param maze
+     */
     private void setPos(Maze3D maze) {
         // set start point
         for (int i = 0; i < maze.numOfCol; i++) {

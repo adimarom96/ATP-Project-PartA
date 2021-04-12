@@ -5,13 +5,12 @@ import algorithms.mazeGenerators.Position;
 import algorithms.search.AState;
 import algorithms.search.ISearchable;
 import algorithms.search.MazeState;
-
 import java.util.ArrayList;
 import java.util.Random;
 
 public class SearchableMaze3D implements ISearchable {
-    Maze3D maze;
-    Maze3DState[][][] statesArray;
+    private Maze3D maze; // new private
+    private Maze3DState[][][] statesArray;
 
     // constructor
     public SearchableMaze3D(Maze3D maze) {
@@ -42,7 +41,13 @@ public class SearchableMaze3D implements ISearchable {
         return state;
     }
 
-    // this function checks if the position we got is legal
+    /**
+     * this function checks if the position we got is legal.
+     * @param z
+     * @param x
+     * @param y
+     * @return
+     */
     private boolean inBorder(int z, int x, int y) {
         if (x > -1 && x < maze.getNumOfRow()) {
             if (z > -1 && z < maze.getNumOfDepth())
@@ -51,7 +56,11 @@ public class SearchableMaze3D implements ISearchable {
         return false;
     }
 
-    // this function returns all the possible states from the AState we got
+    /**
+     * this function returns all the possible states from the AState we got
+     * @param state
+     * @return ArrayList of all the neighbors we can travel to from the state param
+     */
     @Override
     public ArrayList<AState> getAllSuccessors(AState state) {
         ArrayList<AState> possibleState = new ArrayList<AState>();
@@ -98,7 +107,9 @@ public class SearchableMaze3D implements ISearchable {
         return possibleState;
     }
 
-    // this function reset all the "preState" board before we try to solve it again.
+    /**
+     * this function reset all the "preState" board before we try to solve it again.
+     */
     @Override
     public void restStates() {
         for (int z = 0; z < maze.getNumOfDepth(); z++) {

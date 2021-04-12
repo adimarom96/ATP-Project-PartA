@@ -25,18 +25,26 @@ public class MazeState extends AState {
         return pos;
     }
 
-    // check if the state we have equals to the state we got
+    /**
+     * check if the state we have equals to the state we got
+     * @param obj
+     * @return
+     */
     @Override
     public boolean equals(Object obj) {
-        if (obj != null && this.pos.getColumnIndex() == ((MazeState) obj).getPos().getColumnIndex() && this.pos.getRowIndex() == ((MazeState) obj).getPos().getRowIndex())
+        if (obj != null &&
+                this.pos.getColumnIndex() == ((MazeState) obj).getPos().getColumnIndex() &&
+                this.pos.getRowIndex() == ((MazeState) obj).getPos().getRowIndex())
             return true;
         return false;
     }
 
+    /**
+     * ToString func
+     * @return string in {row,col} shape
+     */
     @Override
     public String toString() {
         return this.getPos().toString();
     }
 }
-
-// new condition in line 21 - if obj != null...

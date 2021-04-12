@@ -5,6 +5,7 @@ public class Position {
     private int row;
     private int col;
 
+    // constructor
     public Position(int row, int col) {
         this.row = row;
         this.col = col;

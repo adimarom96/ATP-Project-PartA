@@ -45,18 +45,22 @@ public class Maze3D {
         return numOfCol;
     }
 
-    // this function checks if the position we got is good to go ( =0 )
+    /**
+     * this function checks if the position we got is good to go ( = 0 ).
+     */
     public Boolean possibleToGo(int z, int x, int y) {
         if (map[z][x][y] == 0)
             return true;
         return false;
     }
 
-    // this function print the 3D maze as requested
+    /**
+     * this function print the 3D maze as requested.
+     */
     public void print() {
         System.out.println("{");
-        for(int depth = 0; depth < map.length; depth++){
-            for(int row = 0; row < map[0].length; row++) {
+        for (int depth = 0; depth < map.length; depth++) {
+            for (int row = 0; row < map[0].length; row++) {
                 System.out.print("{ ");
                 for (int col = 0; col < map[0][0].length; col++) {
                     if (depth == this.getStartPosition().getDepthIndex() && row == this.getStartPosition().getRowIndex() && col == this.getStartPosition().getColumnIndex()) // if the position is the start - mark with S
@@ -70,7 +74,7 @@ public class Maze3D {
                 }
                 System.out.println("}");
             }
-            if(depth < map.length - 1) {
+            if (depth < map.length - 1) {
                 System.out.print("---");
                 for (int i = 0; i < map[0][0].length; i++)
                     System.out.print("--");
@@ -78,9 +82,5 @@ public class Maze3D {
             }
         }
         System.out.println("}");
-    }
-
-    public int[][][] getMap() {
-        return map;
     }
 }

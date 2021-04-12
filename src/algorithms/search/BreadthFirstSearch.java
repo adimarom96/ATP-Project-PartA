@@ -29,8 +29,13 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
         return numberOfNodesEvaluated;
     }
 
+    /**
+     * This function find the solution using BFS algorithm. looking for the goal state and count how many nodes we visit.
+     * @param problem
+     * @return solution for the problem.
+     */
     public Solution solve(ISearchable problem) {
-        // if this is not the first try to solve the maze we need to first reset all the PreState adn costs
+        // if this is not the first try to solve the maze we need to first reset all the PreState, costs and isVisited.
         if (count != 0) {
             problem.restStates();
         }
@@ -39,29 +44,25 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
         AState prev = start;
         AState goal = problem.getGoal();
         count++;
-        //this.state_q = new LinkedList<>(); // q that will hold all the possible moves that we didn't visited
         ArrayList<AState> neighbors; // all the possible moves for the current state
         Solution sol = new Solution(goal);
         state_q.add(start);
-        while (!state_q.isEmpty()) { // while this q is not empty we will keep run
+        while (!state_q.isEmpty()) { // while this q is not empty we will keep running
             current = state_q.peek();
-
             if (current.equals(goal)) { // if we found the wanted state
                 goal.setPreState(prev);
-                //goal.setCost(goal.getCost()-10); // we want to reduce the price of the first node
                 numberOfNodesEvaluated++;
                 break;
             }
             prev = state_q.remove();
             neighbors = problem.getAllSuccessors(prev); // get all the neighbors
             for (AState s : neighbors // for each neighbor do:
-            ) {// maybe check if already een in the q
-                if (s.getPreState() == null && !s.equals(start)) { // check which of the neighbors has not been handle
+            ) {
+                if (s.getPreState() == null && !s.equals(start)) { // check which of the neighbors has not been handled yet
                     s.setPreState(current);
                     if (s.equals(goal)) { // if we found the wanted state
                         numberOfNodesEvaluated++;
                         goal = s;
-                       // goal.setCost(goal.getCost()-10); // we want to reduce the price of the first node
                         return new Solution(goal);
                     }
                     state_q.add(s);

@@ -26,7 +26,11 @@ public class Maze3DState extends AState {
         this.visited = visited;
     }
 
-    // check if the state we have equals to the state we got
+    /**
+     * checks if the state we have equals to the state we got
+     * @param obj
+     * @return true/false according to if the states are equal.
+     */
     @Override
     public boolean equals(Object obj) {
         if (this.pos.getColumnIndex() == ((Maze3DState) obj).getPos().getColumnIndex()
@@ -36,6 +40,10 @@ public class Maze3DState extends AState {
         return false;
     }
 
+    /**
+     * ToString func
+     * @return string in {depth,row,col} shape
+     */
     @Override
     public String toString() {
         return this.getPos().toString();

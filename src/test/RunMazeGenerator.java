@@ -10,10 +10,10 @@ import java.util.Random;
 
 public class RunMazeGenerator {
     public static void main(String[] args) {
-        //testMazeGenerator(new EmptyMazeGenerator());
-        //testMazeGenerator(new SimpleMazeGenerator());
-        //testMazeGenerator(new MyMazeGenerator());
-        //testMaze3DGenerator(new MyMaze3DGenerator());
+        testMazeGenerator(new EmptyMazeGenerator());
+        testMazeGenerator(new SimpleMazeGenerator());
+        testMazeGenerator(new MyMazeGenerator());
+        testMaze3DGenerator(new MyMaze3DGenerator());
     }
 
     private static void testMazeGenerator(IMazeGenerator mazeGenerator) {

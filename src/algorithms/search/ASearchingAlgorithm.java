@@ -6,21 +6,16 @@ public abstract class ASearchingAlgorithm implements ISearchingAlgorithm {
     protected int numberOfNodesEvaluated;
     static boolean isBest = false;
 
+    //constructor
+    public ASearchingAlgorithm(String name) {
+        this.name = name;
+    }
     @Override
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public int getNumOfNode() {
         return numberOfNodesEvaluated;
-    }
-
-    public ASearchingAlgorithm(String name) {
-        this.name = name;
-
     }
 }

@@ -9,7 +9,10 @@ public class Solution {
         this.goal = goal;
     }
 
-    // This function calculate the path from the goal point to the start point
+    /**
+     * This function calculate the path from the goal point to the start point.
+     * @return ArrayList of AStates.
+     */
     public ArrayList<AState> getSolutionPath(){
         AState cur = goal;
         ArrayList<AState> path = new ArrayList<AState>();
@@ -22,7 +25,11 @@ public class Solution {
         return path;
     }
 
-    // This function gets the path from goal to start and revers it, returns path from start to end
+    /**
+     * This function gets the path from goal to start and revers it, returns path from start to end
+     * @param path
+     * @return the "normal" path from the beginning to the end.
+     */
     private  ArrayList<AState> revPath(ArrayList<AState> path){
         ArrayList<AState> revPath =  new ArrayList<AState>();
         for (int i = path.size()-1; i >= 0  ; i--) {

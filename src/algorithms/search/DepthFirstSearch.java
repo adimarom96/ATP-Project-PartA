@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public class DepthFirstSearch extends ASearchingAlgorithm {
+    // constructor
     public DepthFirstSearch() {
         super("DFS");
         isBest = false;
@@ -13,6 +14,11 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
         return numberOfNodesEvaluated;
     }
 
+    /**
+     * This function find the solution using DFS algorithm. looking for the goal state and count how many nodes we visit.
+     * @param domain
+     * @return solution for the problem.
+     */
     @Override
     public Solution solve(ISearchable domain) {
         // if this is not the first try to solve the maze we need to first reset all the PreState
@@ -39,7 +45,7 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
             neighbors = domain.getAllSuccessors(prev); // get all the neighbors
             for (AState s : neighbors  // for each neighbor do:
             ) {
-                if (s.getPreState() == null) { // check which of the neighbors has not been handle
+                if (s.getPreState() == null) { // check which of the neighbors has not been handled yet.
                     s.setPreState(current);
                     if (s.equals(goal)) { // if we found the wanted state
                         numberOfNodesEvaluated++;

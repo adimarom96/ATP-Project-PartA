@@ -12,3 +12,6 @@ public class costCompare implements Comparator<AState> {
         return 0;
     }
 }*/
+
+
+// TODO: DELETE !!!!

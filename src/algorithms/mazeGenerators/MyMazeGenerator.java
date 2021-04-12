@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class MyMazeGenerator extends AMazeGenerator {
     /**
-     * this function gets maze and set him all to 1, all walls
+     * this function gets maze and set him all to 1, all walls.
      * @param maze
      * @return maze with all 1's
      */
@@ -22,7 +22,7 @@ public class MyMazeGenerator extends AMazeGenerator {
      * This function makes way throw all the 1's in the maze. using Prim's algorithm to breaks walls and set them to 0 instead of 1.
      * @param row
      * @param col
-     * @return a new maze with possible wat from the start to the end point.
+     * @return a new maze with possible way from the start to the end point.
      */
     @Override
     public Maze generate(int row, int col) {
