@@ -2,12 +2,16 @@ package algorithms.maze3D;
 
 public class Maze3D {
     // TODO: maybe private ?!?!?
-    int numOfDepth;
-    int numOfRow;
-    int numOfCol;
-    int[][][] map;
-    Position3D StartPosition;
-    Position3D GoalPosition;
+   private int numOfDepth;
+    private int numOfRow;
+    private int numOfCol;
+    private int[][][] map;
+    private Position3D StartPosition;
+    private Position3D GoalPosition;
+
+    public int[][][] getMap() {
+        return map;
+    }
 
     // constructor
     public Maze3D(int depth, int row, int col) {

@@ -4,18 +4,18 @@ import algorithms.search.MazeState;
 import java.util.ArrayList;
 
 public class Maze {
-    // TODO: make them all private ??!! (and add getters)
+
     private int numOfRow;
     private int numOfCol;
-    int[][] mazeArr;
-
-    public int[][] getMazeArr() {
-        return mazeArr;
-    }
+    private int[][] mazeArr;//new
 
     //todo: remove this function below
     public void setMazeArr(int[][] mazeArr) {
         this.mazeArr = mazeArr;
+    }
+
+    public int[][] getMazeArr() { // new
+        return mazeArr;
     }
 
     private Position StartPosition;

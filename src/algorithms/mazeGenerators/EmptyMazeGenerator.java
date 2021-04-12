@@ -13,9 +13,10 @@ public class EmptyMazeGenerator extends AMazeGenerator {
         if (row < 2 || col < 2)
             throw new RuntimeException("Wrong parameters !");
         Maze empty_maze = new Maze(row, col);
+        int[][] map = empty_maze.getMazeArr();
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
-                empty_maze.mazeArr[i][j] = 0;
+                map[i][j] = 0;
             }
         }
         empty_maze.setStartPosition(new Position(0, 0));

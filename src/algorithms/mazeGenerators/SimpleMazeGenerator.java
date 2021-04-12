@@ -19,21 +19,24 @@ public class SimpleMazeGenerator extends AMazeGenerator {
         Position goal = new Position(row - 1, col - 1);
         maze.setStartPosition(start);
         maze.setGoalPosition(goal);
-        maze.mazeArr = new int[row][col];
+        int[][] map = maze.getMazeArr();
+        //maze.mazeArr = new int[row][col];
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
                 Random r = new Random();
                 int rnd = r.nextInt((1 - 0) + 1);
-                maze.mazeArr[i][j] = rnd;
+                map[i][j] = rnd;
             }
         }
         // make one way from start to goal manually
+        int [][]matrix = maze.getMazeArr();
         for (int i = 0; i < row; i++) {
-            maze.mazeArr[i][0] = 0;
+            matrix[i][0] = 0;
         }
         for (int i = 0; i < col; i++) {
-            maze.mazeArr[row - 1][i] = 0;
+            matrix[row - 1][i] = 0;
         }
+
         return maze;
     }
 }

@@ -68,7 +68,7 @@ class BestFirstSearchTest {
                 {1, 0, 0, 1, 0},
                 {1, 1, 0, 0, 0}
         };
-        maze.setMazeArr(map);
+        maze.setMazeArr(map); // this func is in '/**/' - if need to use open her first.
         maze.setStartPosition(new Position(0, 0));
         maze.setGoalPosition(new Position(2, 4));
         SearchableMaze searchableMaze = new SearchableMaze(maze);
