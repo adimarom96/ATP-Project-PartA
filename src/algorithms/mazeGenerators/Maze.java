@@ -9,6 +9,10 @@ public class Maze {
     private int numOfCol;
     int[][] mazeArr;
 
+    public int[][] getMazeArr() {
+        return mazeArr;
+    }
+
     //todo: remove this function below
     public void setMazeArr(int[][] mazeArr) {
         this.mazeArr = mazeArr;

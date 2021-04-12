@@ -1,11 +1,16 @@
 package algorithms.maze3D;
 
+import algorithms.mazeGenerators.IMazeGenerator;
+import algorithms.mazeGenerators.Maze;
+import algorithms.mazeGenerators.MyMazeGenerator;
+
 import java.util.LinkedList;
 import java.util.Random;
 
 public class MyMaze3DGenerator extends AMaze3DGenerator {
     /**
      * this function gets maze and set him all to 1, all walls.
+     *
      * @param maze
      * @return maze with all 1's
      */
@@ -22,6 +27,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
 
     /**
      * This function makes way throw all the 1's in the maze. using Prim's algorithm to breaks walls and set them to 0 instead of 1.
+     *
      * @param depth
      * @param row
      * @param column
@@ -31,6 +37,28 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
     public Maze3D generate(int depth, int row, int column) {
         if (row < 2 || column < 2 || depth < 2)
             throw new RuntimeException("Wrong parameters !");
+
+        if (row == 2 && column == 2 && depth == 2) { //generate 2 * 2 *2 maze
+            MyMazeGenerator mazeGenerator =  new MyMazeGenerator();
+            Maze maze1 = mazeGenerator.generate(2, 2);
+            Maze maze2 = mazeGenerator.generate(2, 2);
+            Maze3D maze = new Maze3D(2,2,2);
+            for (int i = 0; i < 2; i++) {
+                for (int j = 0; j < 2; j++) {
+                   maze.map[0][i][j]=maze1.getMazeArr()[i][j];
+                }
+            }
+            for (int i = 0; i < 2; i++) {
+                for (int j = 0; j < 2; j++) {
+                    maze.map[0][i][j]=maze2.getMazeArr()[i][j];
+                }
+            }
+
+            maze.setStartPosition(new Position3D(0,maze1.getStartPosition().getRowIndex(),maze1.getStartPosition().getColumnIndex()));
+            maze.setGoalPosition(new Position3D(1,maze2.getGoalPosition().getRowIndex(),maze1.getGoalPosition().getColumnIndex()));
+            return maze;
+        }
+
         //initialize
         int z, x, y;
         LinkedList<int[]> designated = new LinkedList<>();// list of arrays that contain the possible path to the next move
@@ -74,6 +102,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator {
 
     /**
      * This function gets a maze and set his start and end points.
+     *
      * @param maze
      */
     private void setPos(Maze3D maze) {

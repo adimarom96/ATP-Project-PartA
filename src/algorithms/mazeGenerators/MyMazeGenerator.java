@@ -6,6 +6,7 @@ import java.util.Random;
 public class MyMazeGenerator extends AMazeGenerator {
     /**
      * this function gets maze and set him all to 1, all walls.
+     *
      * @param maze
      * @return maze with all 1's
      */
@@ -20,6 +21,7 @@ public class MyMazeGenerator extends AMazeGenerator {
 
     /**
      * This function makes way throw all the 1's in the maze. using Prim's algorithm to breaks walls and set them to 0 instead of 1.
+     *
      * @param row
      * @param col
      * @return a new maze with possible way from the start to the end point.
@@ -53,11 +55,15 @@ public class MyMazeGenerator extends AMazeGenerator {
             }
         }
         SetPos(maze); // set start and end points.
+        if (maze.getGoalPosition() == null || maze.getStartPosition() == null) {
+            maze = this.generate(row, col);
+        }
         return maze;
     }
 
     /**
      * This function gets a maze and set his start and end points.
+     *
      * @param maze
      */
     private void SetPos(Maze maze) {
