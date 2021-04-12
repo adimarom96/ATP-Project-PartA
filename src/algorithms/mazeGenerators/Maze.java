@@ -4,12 +4,19 @@ import algorithms.search.MazeState;
 import java.util.ArrayList;
 
 public class Maze {
-
     private int numOfRow;
     private int numOfCol;
     private int[][] mazeArr;//new
+    private Position StartPosition;
+    private Position GoalPosition;
 
-    //todo: remove this function below
+    // constructor
+    public Maze(int row, int col) {
+        numOfCol = col;
+        numOfRow = row;
+        mazeArr = new int[row][col];
+    }
+
     public void setMazeArr(int[][] mazeArr) {
         this.mazeArr = mazeArr;
     }
@@ -17,9 +24,6 @@ public class Maze {
     public int[][] getMazeArr() { // new
         return mazeArr;
     }
-
-    private Position StartPosition;
-    private Position GoalPosition;
 
     public Position getStartPosition() {
         return StartPosition;
@@ -37,31 +41,12 @@ public class Maze {
         GoalPosition = goalPosition;
     }
 
-    // constructor
-    public Maze(int row, int col) {
-        numOfCol = col;
-        numOfRow = row;
-        mazeArr = new int[row][col];
-    }
-
     public int getNumOfRow() {
         return numOfRow;
     }
 
     public int getNumOfCol() {
         return numOfCol;
-    }
-
-    /**
-     *
-     * @param x
-     * @param y
-     * @return rather the spot (x,y) is reasonable to go - if holds 0.
-     */
-    public Boolean possibleToGo(int x, int y) {
-        if (mazeArr[x][y] == 0)
-            return true;
-        return false;
     }
 
     public void print() {
@@ -77,5 +62,17 @@ public class Maze {
             }
             System.out.println("}"); // end of row
         }
+    }
+
+    /**
+     *
+     * @param x
+     * @param y
+     * @return rather the spot (x,y) is reasonable to go - if holds 0.
+     */
+    public Boolean possibleToGo(int x, int y) {
+        if (mazeArr[x][y] == 0)
+            return true;
+        return false;
     }
 }

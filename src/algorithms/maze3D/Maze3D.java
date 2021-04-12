@@ -1,7 +1,7 @@
 package algorithms.maze3D;
 
 public class Maze3D {
-    // TODO: maybe private ?!?!?
+
    private int numOfDepth;
     private int numOfRow;
     private int numOfCol;
