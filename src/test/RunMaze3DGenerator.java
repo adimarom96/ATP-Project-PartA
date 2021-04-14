@@ -12,12 +12,11 @@ public class RunMaze3DGenerator {
     }
 
     private static void testMazeGenerator(IMaze3DGenerator maze3DGenerator) {
-        int x = 100;
         // prints the time it takes the algorithm to run
         //System.out.println(String.format("Maze generation time(ms): %s", maze3DGenerator.measureAlgorithmTimeMillis(x, x, x)));
         // generate another maze
-        x = 2;
-        Maze3D maze = maze3DGenerator.generate(x/*depth*/, x/*rows*/, x/*columns*/);
+
+        Maze3D maze = maze3DGenerator.generate(5/*depth*/, 5/*rows*/, 5/*columns*/);
         // prints the maze
         maze.print();
         // get the maze entrance

@@ -11,8 +11,7 @@ import java.util.ArrayList;
 public class RunSearchOnMaze3D {
     public static void main(String[] args) {
         IMaze3DGenerator mg3D = new MyMaze3DGenerator();
-        int x = 2;
-        Maze3D maze3d = mg3D.generate(x, x, x);
+        Maze3D maze3d = mg3D.generate(5, 6, 4);
         maze3d.print();
         SearchableMaze3D searchableMaze3D = new SearchableMaze3D(maze3d);
         solveProblem(searchableMaze3D, new BreadthFirstSearch());
