@@ -1,6 +1,11 @@
 package algorithms.mazeGenerators;
+
 import algorithms.search.AState;
 import algorithms.search.MazeState;
+
+import java.math.BigInteger;
+import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
 import java.util.ArrayList;
 
 public class Maze {
@@ -8,6 +13,19 @@ public class Maze {
     private int numOfRow;
     private int numOfCol;
     int[][] mazeArr;
+    private Position StartPosition;
+    private Position GoalPosition;
+
+    // constructor
+    public Maze(int row, int col) {
+        numOfCol = col;
+        numOfRow = row;
+        mazeArr = new int[row][col];
+    }
+
+    public Maze(byte[] savedMazeBytes) {
+        //TODO: implement !
+    }
 
     public int[][] getMazeArr() {
         return mazeArr;
@@ -17,9 +35,6 @@ public class Maze {
     public void setMazeArr(int[][] mazeArr) {
         this.mazeArr = mazeArr;
     }
-
-    private Position StartPosition;
-    private Position GoalPosition;
 
     public Position getStartPosition() {
         return StartPosition;
@@ -37,13 +52,6 @@ public class Maze {
         GoalPosition = goalPosition;
     }
 
-    // constructor
-    public Maze(int row, int col) {
-        numOfCol = col;
-        numOfRow = row;
-        mazeArr = new int[row][col];
-    }
-
     public int getNumOfRow() {
         return numOfRow;
     }
@@ -53,9 +61,8 @@ public class Maze {
     }
 
     /**
-     *
-     * @param x
-     * @param y
+     * @param x - row index.
+     * @param y - column index.
      * @return rather the spot (x,y) is reasonable to go - if holds 0.
      */
     public Boolean possibleToGo(int x, int y) {
@@ -77,5 +84,29 @@ public class Maze {
             }
             System.out.println("}"); // end of row
         }
+    }
+
+    /**
+     * this function took the maze and shrink it into one byte array.
+     * the format is: row, col, X start, Y start, X end, Y end, all the maze
+     *
+     * @return byte array with all the information of the maze.
+     */
+    public byte[] toByteArray() {
+        // to check use this website: https://cryptii.com/pipes/integer-converter
+        int row = getNumOfRow();
+        int col = getNumOfCol();
+        Position start = getStartPosition();
+        Position goal = getGoalPosition();
+
+        int[] data = {row, col, start.getRowIndex(), start.getColumnIndex(), goal.getRowIndex(), goal.getColumnIndex()};
+
+        ByteBuffer byteBuffer = ByteBuffer.allocate(24 + row * col);
+        IntBuffer intBuffer = byteBuffer.asIntBuffer();
+        intBuffer.put(data);
+
+        byte[] array = byteBuffer.array();
+
+        return array;
     }
 }
