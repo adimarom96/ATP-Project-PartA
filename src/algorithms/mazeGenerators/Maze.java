@@ -1,18 +1,15 @@
 package algorithms.mazeGenerators;
 
-import algorithms.search.AState;
-import algorithms.search.MazeState;
-
-import java.math.BigInteger;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.IntBuffer;
-import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Maze {
+    int[][] mazeArr;
     // TODO: make them all private ??!! (and add getters)
     private int numOfRow;
     private int numOfCol;
-    int[][] mazeArr;
     private Position StartPosition;
     private Position GoalPosition;
 
@@ -24,14 +21,22 @@ public class Maze {
     }
 
     public Maze(byte[] savedMazeBytes) {
-        //TODO: implement !
+        IntBuffer intBuf = ByteBuffer.wrap(savedMazeBytes).order(ByteOrder.BIG_ENDIAN).asIntBuffer();
+        int[] array = new int[intBuf.remaining()];
+        intBuf.get(array);
+        numOfRow = array[0];
+        numOfCol = array[1];
+        Position start = new Position(array[2], array[3]);
+        Position goal = new Position(array[4], array[5]);
+        this.setMazeArr(toTwoD(numOfRow, numOfCol, Arrays.copyOfRange(array, 6, array.length)));
+        this.setStartPosition(start);
+        this.setGoalPosition(goal);
     }
 
     public int[][] getMazeArr() {
         return mazeArr;
     }
 
-    //todo: remove this function below
     public void setMazeArr(int[][] mazeArr) {
         this.mazeArr = mazeArr;
     }
@@ -40,12 +45,12 @@ public class Maze {
         return StartPosition;
     }
 
-    public Position getGoalPosition() {
-        return GoalPosition;
-    }
-
     public void setStartPosition(Position startPosition) {
         StartPosition = startPosition;
+    }
+
+    public Position getGoalPosition() {
+        return GoalPosition;
     }
 
     public void setGoalPosition(Position goalPosition) {
@@ -99,14 +104,42 @@ public class Maze {
         Position start = getStartPosition();
         Position goal = getGoalPosition();
 
-        int[] data = {row, col, start.getRowIndex(), start.getColumnIndex(), goal.getRowIndex(), goal.getColumnIndex()};
+        int[] oneDarr = toOneD();
+        int[] Metadata = {row, col, start.getRowIndex(), start.getColumnIndex(), goal.getRowIndex(), goal.getColumnIndex()};
+        int[] all = new int[oneDarr.length + Metadata.length];
+        System.arraycopy(Metadata, 0, all, 0, Metadata.length);
+        System.arraycopy(oneDarr, 0, all, Metadata.length, oneDarr.length);
 
-        ByteBuffer byteBuffer = ByteBuffer.allocate(24 + row * col);
+        ByteBuffer byteBuffer = ByteBuffer.allocate(all.length * 4);
         IntBuffer intBuffer = byteBuffer.asIntBuffer();
-        intBuffer.put(data);
+        intBuffer.put(all);
 
         byte[] array = byteBuffer.array();
 
         return array;
+    }
+
+    private int[] toOneD() {
+        int count = 0;
+        int[] arr = new int[this.getNumOfRow() * this.getNumOfCol()];
+        for (int i = 0; i < numOfRow; i++) {
+            for (int j = 0; j < numOfCol; j++) {
+                arr[count] = mazeArr[i][j];
+                count++;
+            }
+        }
+        return arr;
+    }
+
+    private int[][] toTwoD(int row, int col, int[] oneD) {
+        int count = 0;
+        int[][] matrix = new int[row][col];
+        for (int i = 0; i < numOfRow; i++) {
+            for (int j = 0; j < numOfCol; j++) {
+                matrix[i][j] = oneD[count];
+                count++;
+            }
+        }
+        return matrix;
     }
 }
