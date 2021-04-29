@@ -5,15 +5,15 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class MyDecompressorInputStream extends InputStream {
-    FileInputStream fileInputStream;
-    public MyDecompressorInputStream(FileInputStream fileInputStream) {
-        this.fileInputStream = fileInputStream;
-        // TODO: implement!
+    private InputStream in;
+
+    public MyDecompressorInputStream(InputStream in) {
+        this.in = in;
     }
+
 
     @Override
     public int read() throws IOException {
-        // TODO: implement!
         return 0;
     }
 }

@@ -7,7 +7,6 @@ import java.util.Arrays;
 
 public class Maze {
     int[][] mazeArr;
-    // TODO: make them all private ??!! (and add getters)
     private int numOfRow;
     private int numOfCol;
     private Position StartPosition;
@@ -19,8 +18,9 @@ public class Maze {
         numOfRow = row;
         mazeArr = new int[row][col];
     }
-
+    // constructor
     public Maze(byte[] savedMazeBytes) {
+        // constructor for the decompressor
         IntBuffer intBuf = ByteBuffer.wrap(savedMazeBytes).order(ByteOrder.BIG_ENDIAN).asIntBuffer();
         int[] array = new int[intBuf.remaining()];
         intBuf.get(array);
@@ -113,12 +113,14 @@ public class Maze {
         ByteBuffer byteBuffer = ByteBuffer.allocate(all.length * 4);
         IntBuffer intBuffer = byteBuffer.asIntBuffer();
         intBuffer.put(all);
-
         byte[] array = byteBuffer.array();
-
         return array;
     }
 
+    /**
+     * private function that flatten the matrix to only 1 dimension.
+     * @return array of all the data in the maze.
+     */
     private int[] toOneD() {
         int count = 0;
         int[] arr = new int[this.getNumOfRow() * this.getNumOfCol()];
@@ -131,6 +133,12 @@ public class Maze {
         return arr;
     }
 
+    /**
+     * @param row
+     * @param col
+     * @param oneD - only the 0\1 of the matrix but in 1D array
+     * @return
+     */
     private int[][] toTwoD(int row, int col, int[] oneD) {
         int count = 0;
         int[][] matrix = new int[row][col];
