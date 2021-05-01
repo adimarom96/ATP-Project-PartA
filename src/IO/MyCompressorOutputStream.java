@@ -20,18 +20,15 @@ public class MyCompressorOutputStream extends OutputStream {
         int row = ((barray[0] & 0xFF) << 24) | ((barray[1] & 0xFF) << 16) | ((barray[2] & 0xFF) << 8) | ((barray[3] & 0xFF));
         int col = ((barray[4] & 0xFF) << 24) | ((barray[5] & 0xFF) << 16) | ((barray[6] & 0xFF) << 8) | ((barray[7] & 0xFF));
         int amount = col * row;
-        int rest = amount % 8;
-
+        int rest = (amount * 4) % 8;
         out.write((byte) rest);
-
         int[] binaryArr = new int[8];
         byte[] matrix = Arrays.copyOfRange(barray, 27, barray.length);
         int index = 0;
 
-        int num = (int) (Math.floor((matrix.length / 32) * 8));
-
+        int num = (int) (Math.floor(((matrix.length+3) / 32) * 8));
+        ///int num = amount-rest;
         for (int i = 0; i < num; i++) {
-
             binaryArr[index] = matrix[i * 4];
             if (i * 4 % 28 == 0 && i != 0) {
                 toBinary(binaryArr);
@@ -40,9 +37,9 @@ public class MyCompressorOutputStream extends OutputStream {
             }
             index++;
         }
-        for (int i = barray.length-rest; i < barray.length; i++) {
+        // bug here !!!!!
+        for (int i = barray.length - rest; i < barray.length; i++) {
             out.write(barray[i]);
-            System.out.println(barray[i]);
         }
     }
 

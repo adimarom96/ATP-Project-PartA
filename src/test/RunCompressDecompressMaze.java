@@ -15,12 +15,12 @@ public class RunCompressDecompressMaze {
     public static void main(String[] args) {
         String mazeFileName = "savedMaze.txt";
         AMazeGenerator mazeGenerator = new MyMazeGenerator();
-        Maze maze = mazeGenerator.generate(5, 6); //Generate new maze
+        Maze maze = mazeGenerator.generate(4,5); //Generate new maze
         //maze.print();
         try {
             // save maze to a file
             OutputStream out = new MyCompressorOutputStream(new FileOutputStream(mazeFileName));
-           // OutputStream out = new SimpleCompressorOutputStream(new FileOutputStream(mazeFileName));
+            // OutputStream out = new SimpleCompressorOutputStream(new FileOutputStream(mazeFileName));
             out.write(maze.toByteArray());
             out.flush();
             out.close();
@@ -44,8 +44,8 @@ public class RunCompressDecompressMaze {
         byte[] newM = loadedMaze.toByteArray();
         byte[] oldM = maze.toByteArray();
         for (int i = 0; i < newM.length; i++) {
-            if(newM[i] != oldM[i]){
-                System.out.println("index: "+ i +" new maze: " +newM[i] +" old maze: "+ oldM[i]);
+            if (newM[i] != oldM[i]) {
+                System.out.println("index: " + i + " new maze: " + newM[i] + " old maze: " + oldM[i]);
             }
         }
         System.out.println(String.format("Mazes equal: %s", areMazesEquals));
