@@ -3,6 +3,7 @@ package IO;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MyDecompressorInputStream extends InputStream {
     private InputStream in;
@@ -15,16 +16,16 @@ public class MyDecompressorInputStream extends InputStream {
     public int read(byte[] b) throws IOException {
         byte[] compress = in.readAllBytes();// read all the file - 24 of MetaData and the rest is counters.
         in.close();
-
-        //copy the first 28 cells to b
-        for (int i = 0; i < 24; i++) {
-            b[i] = compress[i];
-        }
-
         int rest = compress[24];
         int x;
         int[] arr;
         int index = 24;
+
+        //copy the first 28 cells to b
+        System.arraycopy(compress, 0, b, 0, 24);
+
+
+        // decompress the numbers by useing eightbit function and add them to b array
         for (int i = 25; i < compress.length - rest; i++) {
             x = compress[i];
             if (x < 0)
@@ -32,23 +33,25 @@ public class MyDecompressorInputStream extends InputStream {
             arr = eightBit(x);
             for (int j = 0; j < 8; j++) {
                 add(b, index, arr[j]);
-                System.out.println("write from: to " + index + " to " + (index + 3));
                 index += 4;
             }
-            //index++;
-        }
-        // the rest of the matrix that is less than 8
-       /* for (int i = compress.length - rest; i < compress.length; i++) {
-            add(b, i, compress[i]);
-        }*/
 
-        for (int i = 0; i < rest; i++) {
-            b[index] = compress[compress.length-rest+i];
-            index++;
         }
+
+        // decompress the rest of the numbers  and add them to b array
+        for (int i = 0; i < rest; i++) {
+            add(b,index,compress[compress.length-rest+i]);
+            index+=4;
+        }
+
         return 0;
     }
 
+    /**
+     * get a decimal number and convert it to 8 bit binary number
+     * @param x
+     * @return
+     */
     public int[] eightBit(int x) {
         String str = new String(Integer.toBinaryString(x));
         while (str.length() < 8)
@@ -57,11 +60,16 @@ public class MyDecompressorInputStream extends InputStream {
         char[] ca = str.toCharArray();
         for (int j = 0; j < 8; j++) {
             arr[j] = Character.getNumericValue(ca[j]);
-            //System.out.println(arr[j]);
         }
         return arr;
     }
 
+    /**
+     * get a int number and insert it as 4 byte
+     * @param b
+     * @param startIndex
+     * @param value (will get just one or zeros)
+     */
     private void add(byte[] b, int startIndex, int value) {
         b[startIndex] = 0;
         b[startIndex + 1] = 0;

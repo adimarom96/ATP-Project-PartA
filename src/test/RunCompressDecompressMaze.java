@@ -12,10 +12,12 @@ import java.io.*;
 import java.util.Arrays;
 
 public class RunCompressDecompressMaze {
+
     public static void main(String[] args) {
+
         String mazeFileName = "savedMaze.txt";
         AMazeGenerator mazeGenerator = new MyMazeGenerator();
-        Maze maze = mazeGenerator.generate(4,5); //Generate new maze
+        Maze maze = mazeGenerator.generate(1000,1000); //Generate new maze
         //maze.print();
         try {
             // save maze to a file
