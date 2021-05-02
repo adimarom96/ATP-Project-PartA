@@ -11,8 +11,8 @@ import java.util.HashMap;
 
 public class ServerStrategySolveSearchProblem implements IServerStrategy{
 
-
     private ISearchingAlgorithm searcher;
+
     @Override
     public void ServerStrategy(InputStream inFromClient, OutputStream outToClient) throws IOException {
     try{
@@ -25,17 +25,17 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy{
         sol = searcher.solve(searchableMaze);
         String mazeFileName = "maze";
         String solFileName  = "mazesol";
-        writeAll(solFileName,sol,mazeFileName,clientMaze)
+        //writeAll(solFileName,sol,mazeFileName,clientMaze);
 
     } catch (ClassNotFoundException e) {
         e.printStackTrace();
     }
     }
-    private synchronized void writeAll (String solName, Solution sol, String mazeName, Maze outM, String newMazeKey)
+    /*private synchronized void writeAll (String solName, Solution sol, String mazeName, Maze outM, String newMazeKey)
     {
         writeSolToFile(solName, sol);
         writeMazeToFile(mazeName, outM);
         solAndMazeDict.put(newMazeKey, solName);
-    }
+    }*/
 }
 

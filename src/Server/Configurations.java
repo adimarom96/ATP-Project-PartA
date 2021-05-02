@@ -15,4 +15,9 @@ import java.util.Properties;
 public class Configurations {
     public static void main(String[] args) {
     }
+
+    public static int readNumOfThreads() {
+        // TODO: implement
+        return 3;
+    }
 }

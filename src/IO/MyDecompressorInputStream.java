@@ -2,8 +2,6 @@ package IO;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class MyDecompressorInputStream extends InputStream {
     private InputStream in;
@@ -21,11 +19,10 @@ public class MyDecompressorInputStream extends InputStream {
         int[] arr;
         int index = 24;
 
-        //copy the first 28 cells to b
+        //copy the first 28 cells to b.
         System.arraycopy(compress, 0, b, 0, 24);
 
-
-        // decompress the numbers by useing eightbit function and add them to b array
+        // decompress the numbers by using 8 bit function and add them to b array.
         for (int i = 25; i < compress.length - rest; i++) {
             x = compress[i];
             if (x < 0)
@@ -35,10 +32,9 @@ public class MyDecompressorInputStream extends InputStream {
                 add(b, index, arr[j]);
                 index += 4;
             }
-
         }
 
-        // decompress the rest of the numbers  and add them to b array
+        // decompress the rest of the numbers and add them to b array.
         for (int i = 0; i < rest; i++) {
             add(b,index,compress[compress.length-rest+i]);
             index+=4;
@@ -53,7 +49,7 @@ public class MyDecompressorInputStream extends InputStream {
      * @return
      */
     public int[] eightBit(int x) {
-        String str = new String(Integer.toBinaryString(x));
+        String str = Integer.toBinaryString(x);
         while (str.length() < 8)
             str = "0" + str;
         int[] arr = new int[8];

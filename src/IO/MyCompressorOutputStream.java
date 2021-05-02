@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 public class MyCompressorOutputStream extends OutputStream {
 
-    OutputStream out;
+    public OutputStream out;
 
     public MyCompressorOutputStream(OutputStream out) {
         this.out = out;
@@ -27,7 +27,7 @@ public class MyCompressorOutputStream extends OutputStream {
         for (int i = 0; i < 24; i++) {
             out.write(barray[i]);
         }
-        out.write((byte) rest); // wtring thr rest as the 24 byte
+        out.write((byte) rest); // writing the rest as the 24 byte
 
         for (int i = 0; i < num; i++) {  // run the actual times of 8bit numbers that we need to write without the rest
             binaryArr[index] = matrix[i * 4];
