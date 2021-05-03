@@ -1,23 +1,63 @@
 package Server;
 
 import algorithms.mazeGenerators.AMazeGenerator;
-import algorithms.mazeGenerators.EmptyMazeGenerator;
-import algorithms.mazeGenerators.MyMazeGenerator;
-import algorithms.mazeGenerators.SimpleMazeGenerator;
-import algorithms.search.ASearchingAlgorithm;
-import algorithms.search.BestFirstSearch;
 import algorithms.search.BreadthFirstSearch;
-import algorithms.search.DepthFirstSearch;
+import algorithms.search.ISearchingAlgorithm;
 
-import java.io.*;
-import java.util.Properties;
+import java.io.OutputStream;
 
 public class Configurations {
-    public static void main(String[] args) {
+    private static Configurations instance = null;
+    private int NThreads; // how many threads to use.
+    private AMazeGenerator generator; // which generator to use.(empty/simple/My)
+    private OutputStream stream; // which compress algorithm to use (simple/My)
+    private ISearchingAlgorithm search; // which searching algorithm to use.(BFS/DFS/Best)
+
+    private Configurations() {
+
     }
 
-    public static int readNumOfThreads() {
-        // TODO: implement
-        return 3;
+    public static Configurations getInstance() {
+        if (instance == null)
+            instance = new Configurations();
+        return instance;
+    }
+
+    //----------------getters---------------------
+    public int getNThreads() {
+        return NThreads;
+    }
+
+    public AMazeGenerator getGenerator() {
+        return generator;
+    }
+
+    public OutputStream getStream() {
+        return stream;
+    }
+
+    public ISearchingAlgorithm getSearch() {
+        return search;
+    }
+
+    //----------------setters---------------------
+    public void setNThreads(int NThreads) {
+        if (NThreads > 0)
+            this.NThreads = NThreads;
+    }
+
+    public void setGenerator(AMazeGenerator generator) {
+        if (generator != null)
+            this.generator = generator;
+    }
+
+    public void setStream(OutputStream stream) {
+        if (stream != null)
+            this.stream = stream;
+    }
+
+    public void setSearch(ISearchingAlgorithm search) {
+        if (search != null)
+            this.search = search;
     }
 }

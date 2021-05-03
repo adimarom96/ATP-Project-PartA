@@ -1,11 +1,12 @@
 package algorithms.mazeGenerators;
 
+import java.io.Serializable;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.IntBuffer;
 import java.util.Arrays;
 
-public class Maze {
+public class Maze implements Serializable {
     int[][] mazeArr;
     private int numOfRow;
     private int numOfCol;

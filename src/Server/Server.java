@@ -33,7 +33,7 @@ public class Server {
     }
 
     private void runServer() {
-        int i = 0;
+        //int i = 0;
         try {
             ServerSocket serverSocket = new ServerSocket(port);
             serverSocket.setSoTimeout(listeningIntervalMS);
@@ -51,8 +51,8 @@ public class Server {
                     });
                     //System.out.println("Client accepted: " + clientSocket.toString());
                 } catch (SocketTimeoutException e) {
-                    System.out.println("Socket timeout " + i);
-                    i++;
+                    //System.out.println("Socket timeout " + i);
+                    //i++;
                 }
                     /*strategy.ServerStrategy(clientSocket.getInputStream(), clientSocket.getOutputStream());
                     clientSocket.getInputStream().close(); // new adi add

@@ -19,7 +19,7 @@ public class MyDecompressorInputStream extends InputStream {
         int[] arr;
         int index = 24;
 
-        //copy the first 28 cells to b.
+        //copy the first 24 cells to b.
         System.arraycopy(compress, 0, b, 0, 24);
 
         // decompress the numbers by using 8 bit function and add them to b array.
@@ -36,8 +36,8 @@ public class MyDecompressorInputStream extends InputStream {
 
         // decompress the rest of the numbers and add them to b array.
         for (int i = 0; i < rest; i++) {
-            add(b,index,compress[compress.length-rest+i]);
-            index+=4;
+            add(b, index, compress[compress.length - rest + i]);
+            index += 4;
         }
 
         return 0;
@@ -45,6 +45,7 @@ public class MyDecompressorInputStream extends InputStream {
 
     /**
      * get a decimal number and convert it to 8 bit binary number
+     *
      * @param x
      * @return
      */
@@ -62,9 +63,10 @@ public class MyDecompressorInputStream extends InputStream {
 
     /**
      * get a int number and insert it as 4 byte
+     *
      * @param b
      * @param startIndex
-     * @param value (will get just one or zeros)
+     * @param value      (will get just one or zeros)
      */
     private void add(byte[] b, int startIndex, int value) {
         b[startIndex] = 0;
