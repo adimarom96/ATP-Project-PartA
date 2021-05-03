@@ -30,14 +30,16 @@ public class MyDecompressorInputStream extends InputStream {
             arr = eightBit(x);
             for (int j = 0; j < 8; j++) {
                 add(b, index, arr[j]);
-                index += 4;
+                index ++;
+                //index += 4; old
             }
         }
 
         // decompress the rest of the numbers and add them to b array.
         for (int i = 0; i < rest; i++) {
             add(b, index, compress[compress.length - rest + i]);
-            index += 4;
+            //index += 4; old
+            index++;
         }
 
         return 0;
@@ -69,10 +71,11 @@ public class MyDecompressorInputStream extends InputStream {
      * @param value      (will get just one or zeros)
      */
     private void add(byte[] b, int startIndex, int value) {
-        b[startIndex] = 0;
+        /*b[startIndex] = 0;
         b[startIndex + 1] = 0;
         b[startIndex + 2] = 0;
-        b[startIndex + 3] = (byte) value;
+        b[startIndex + 3] = (byte) value; old  */
+        b[startIndex] = (byte) value;
     }
 
     @Override

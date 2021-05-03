@@ -11,6 +11,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import static java.lang.Thread.sleep;
+
 public class Server {
     private int port;
     private int listeningIntervalMS;
@@ -28,7 +30,8 @@ public class Server {
     }
 
     public void start() {
-        executor.setCorePoolSize(Runtime.getRuntime().availableProcessors());
+//        executor.setCorePoolSize(Runtime.getRuntime().availableProcessors());todo - bring back confi
+        executor.setCorePoolSize(1);
         new Thread(() -> runServer()).start();
     }
 
@@ -37,7 +40,6 @@ public class Server {
         try {
             ServerSocket serverSocket = new ServerSocket(port);
             serverSocket.setSoTimeout(listeningIntervalMS);
-            //System.out.println("Starting server at port = " + port);
             while (!stop) {
                 try {
                     Socket clientSocket = serverSocket.accept();
@@ -49,15 +51,11 @@ public class Server {
                             setServerStrategy(inFromClient, outToClient, clientSocket);
                         }
                     });
-                    //System.out.println("Client accepted: " + clientSocket.toString());
                 } catch (SocketTimeoutException e) {
                     //System.out.println("Socket timeout " + i);
                     //i++;
                 }
-                    /*strategy.ServerStrategy(clientSocket.getInputStream(), clientSocket.getOutputStream());
-                    clientSocket.getInputStream().close(); // new adi add
-                    clientSocket.getOutputStream().close();
-                    clientSocket.close();*/
+
             }
             executor.shutdown();
             executor.awaitTermination(5, TimeUnit.MINUTES);

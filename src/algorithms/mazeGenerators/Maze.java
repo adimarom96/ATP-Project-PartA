@@ -22,14 +22,16 @@ public class Maze implements Serializable {
     // constructor
     public Maze(byte[] savedMazeBytes) {
         // constructor for the decompressor
-        IntBuffer intBuf = ByteBuffer.wrap(savedMazeBytes).order(ByteOrder.BIG_ENDIAN).asIntBuffer();
+        byte [] first = Arrays.copyOfRange(savedMazeBytes, 0, 24);
+        IntBuffer intBuf = ByteBuffer.wrap(first).order(ByteOrder.BIG_ENDIAN).asIntBuffer();
         int[] array = new int[intBuf.remaining()];
         intBuf.get(array);
         numOfRow = array[0];
         numOfCol = array[1];
         Position start = new Position(array[2], array[3]);
         Position goal = new Position(array[4], array[5]);
-        this.setMazeArr(toTwoD(numOfRow, numOfCol, Arrays.copyOfRange(array, 6, array.length)));
+
+        this.setMazeArr(toTwoD(numOfRow, numOfCol, Arrays.copyOfRange(savedMazeBytes, 24, savedMazeBytes.length)));
         this.setStartPosition(start);
         this.setGoalPosition(goal);
     }
@@ -140,7 +142,7 @@ public class Maze implements Serializable {
      * @param oneD - only the 0\1 of the matrix but in 1D array
      * @return
      */
-    private int[][] toTwoD(int row, int col, int[] oneD) {
+    private int[][] toTwoD(int row, int col, byte[] oneD) {
         int count = 0;
         int[][] matrix = new int[row][col];
         for (int i = 0; i < numOfRow; i++) {

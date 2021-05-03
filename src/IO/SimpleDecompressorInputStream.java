@@ -43,7 +43,8 @@ public class SimpleDecompressorInputStream extends InputStream {
                     } else {
                         add(b, bindex, 0);
                     }
-                    bindex += 4;
+//                    bindex += 4;
+                    bindex++;
                 }
                 addone = !addone;
             }
@@ -60,7 +61,8 @@ public class SimpleDecompressorInputStream extends InputStream {
                     } else {
                         add(b, bindex, 0);
                     }
-                    bindex += 4;
+                    //bindex += 4;
+                    bindex++;
                 }
                 addone = !addone;
             }
@@ -70,14 +72,16 @@ public class SimpleDecompressorInputStream extends InputStream {
 
     /**
      * function that convert to bytes.
-     * @param b - the array to write in
+     *
+     * @param b          - the array to write in
      * @param startIndex - where to write
-     * @param value - 0/1
+     * @param value      - 0/1
      */
     private void add(byte[] b, int startIndex, int value) {
-        b[startIndex] = 0;
+        /*b[startIndex] = 0;
         b[startIndex + 1] = 0;
         b[startIndex + 2] = 0;
-        b[startIndex + 3] = (byte) value;
+        b[startIndex + 3] = (byte) value;*/
+        b[startIndex] = (byte) value;
     }
 }
