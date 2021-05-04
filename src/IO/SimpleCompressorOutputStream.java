@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SimpleCompressorOutputStream extends OutputStream {
-    private OutputStream out;
+    public OutputStream out;
 
     public SimpleCompressorOutputStream(OutputStream out) {
         this.out = out;
@@ -79,7 +79,6 @@ public class SimpleCompressorOutputStream extends OutputStream {
             out.write((byte) compArr.get(i).intValue());
         }
     }
-
 
     @Override
     public void write(int b) throws IOException {

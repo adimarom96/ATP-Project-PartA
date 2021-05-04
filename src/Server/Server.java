@@ -1,5 +1,6 @@
 package Server;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -12,25 +13,28 @@ public class Server {
     private int port;
     private int listeningIntervalMS;
     private IServerStrategy strategy;
-    private boolean stop;
     private ThreadPoolExecutor executor;
+    private boolean stop;
 
-    public Server(int port, int listeningIntervalMS, IServerStrategy strategy) {
+    public Server(int port, int listeningIntervalMS, IServerStrategy strategy)  {
         this.port = port;
         this.listeningIntervalMS = listeningIntervalMS;
         this.strategy = strategy;
         Configurations config = Configurations.getInstance();
-        //int n = config.getProp( "threadPoolSize");
-        //int n = Integer.parseInt(config.getProp().getProperty("threadPoolSize"));
-        executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(3);
-        //executor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
+        //System.out.println("is Empty? "+Configurations.getInstance().getP("threadPoolSize"));
+        String x = Configurations.getInstance().getP("threadPoolSize");//todo-check!
+        if(x == null)
+        {
+            Configurations.setP("threadPoolSize", "5");
+            Configurations.setP("problemSolver", "BreadthFirstSearch");
+            Configurations.setP("generateMaze", "MyMazeGenerator");
+            Configurations.setP("compress", "MyCompressorOutputStream");
+        }
+        String str = config.getP("threadPoolSize");
+        executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(Integer.parseInt(str));
     }
 
     public void start() {
-
-
-        //int n = Integer.parseInt(config.getProp().getProperty("threadPoolSize"));
-        //executor.setCorePoolSize(n);
         new Thread(() -> runServer()).start();
     }
 

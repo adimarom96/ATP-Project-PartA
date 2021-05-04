@@ -56,7 +56,7 @@ public class RunCommunicateWithServers {
                         is.read(b); //Fill decompressedMaze with bytes
                         Maze maze = new Maze(b);
                         //maze.print();
-                        System.out.println("success1!");//delete
+                        //System.out.println("success1!");//delete
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

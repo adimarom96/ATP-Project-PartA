@@ -1,10 +1,7 @@
 package Server;
 
 import algorithms.mazeGenerators.Maze;
-import algorithms.search.BreadthFirstSearch;
-import algorithms.search.ISearchingAlgorithm;
-import algorithms.search.SearchableMaze;
-import algorithms.search.Solution;
+import algorithms.search.*;
 
 import java.io.*;
 import java.util.Arrays;
@@ -18,9 +15,18 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy, Serial
 
     @Override
     public void ServerStrategy(InputStream inFromClient, OutputStream outToClient) throws IOException {
-        this.searcher = new BreadthFirstSearch();//Configurations?
         map = new HashMap<>();
         Solution sol;
+        Configurations config = Configurations.getInstance();
+        //String search = config.getP("generateMaze");
+        String search = config.getP("problemSolver");
+        if (search.equals("BreadthFirstSearch"))
+            this.searcher = new BreadthFirstSearch();
+        else if (search.equals("DepthFirstSearch"))
+            this.searcher = new DepthFirstSearch();
+        else
+            this.searcher = new BestFirstSearch();
+
         try {
             ObjectInputStream fromClient = new ObjectInputStream(inFromClient);
             ObjectOutputStream toClient = new ObjectOutputStream(outToClient);
@@ -40,8 +46,8 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy, Serial
                 sol = searcher.solve(searchableMaze);//Configurations?
                 counter++;
                 String solFileName = "Sol" + counter + ".txt"; // create value for the hashMap
-                map.put(mazeKeyString,solFileName); // add to hashMap
-                File newSol = new File(tempDirectoryPath,solFileName);// create file
+                map.put(mazeKeyString, solFileName); // add to hashMap
+                File newSol = new File(tempDirectoryPath, solFileName);// create file
                 ObjectOutputStream outFile = new ObjectOutputStream(new FileOutputStream(newSol));
                 outFile.writeObject(sol);// write to the file.
             }
