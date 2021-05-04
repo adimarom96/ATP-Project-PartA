@@ -6,37 +6,35 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
-
-import static java.lang.Thread.sleep;
+import java.util.concurrent.*;
 
 public class Server {
     private int port;
     private int listeningIntervalMS;
     private IServerStrategy strategy;
     private boolean stop;
-    //private ExecutorService executor;
     private ThreadPoolExecutor executor;
 
     public Server(int port, int listeningIntervalMS, IServerStrategy strategy) {
         this.port = port;
         this.listeningIntervalMS = listeningIntervalMS;
         this.strategy = strategy;
-        //executor = Executors.newFixedThreadPool(Configurations.readNumOfThreads());
-        executor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
+        Configurations config = Configurations.getInstance();
+        //int n = config.getProp( "threadPoolSize");
+        //int n = Integer.parseInt(config.getProp().getProperty("threadPoolSize"));
+        executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(3);
+        //executor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
     }
 
     public void start() {
-//        executor.setCorePoolSize(Runtime.getRuntime().availableProcessors());todo - bring back confi
-        executor.setCorePoolSize(1);
+
+
+        //int n = Integer.parseInt(config.getProp().getProperty("threadPoolSize"));
+        //executor.setCorePoolSize(n);
         new Thread(() -> runServer()).start();
     }
 
     private void runServer() {
-        //int i = 0;
         try {
             ServerSocket serverSocket = new ServerSocket(port);
             serverSocket.setSoTimeout(listeningIntervalMS);
@@ -52,10 +50,8 @@ public class Server {
                         }
                     });
                 } catch (SocketTimeoutException e) {
-                    //System.out.println("Socket timeout " + i);
-                    //i++;
+                    System.out.println("Socket timeout ");
                 }
-
             }
             executor.shutdown();
             executor.awaitTermination(5, TimeUnit.MINUTES);
@@ -73,7 +69,6 @@ public class Server {
             e.printStackTrace();
         }
     }
-
 
     public void stop() {
         stop = true;

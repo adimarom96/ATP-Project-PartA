@@ -15,8 +15,7 @@ public class ServerStrategyGenerateMaze implements IServerStrategy ,Serializable
             ObjectInputStream fromClient = new ObjectInputStream(inFromClient);
             ObjectOutputStream toClient = new ObjectOutputStream(outToClient);
             int[] size = (int[]) fromClient.readObject();
-            Configurations confi;
-            confi = Configurations.getInstance();
+
             AMazeGenerator generator = new MyMazeGenerator();//Configurations?
             Maze maze = generator.generate(size[0], size[1]);
 
