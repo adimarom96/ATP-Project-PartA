@@ -1,6 +1,5 @@
 package Server;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -16,19 +15,22 @@ public class Server {
     private ThreadPoolExecutor executor;
     private boolean stop;
 
-    public Server(int port, int listeningIntervalMS, IServerStrategy strategy)  {
+    public Server(int port, int listeningIntervalMS, IServerStrategy strategy) {
         this.port = port;
         this.listeningIntervalMS = listeningIntervalMS;
         this.strategy = strategy;
         Configurations config = Configurations.getInstance();
-        //System.out.println("is Empty? "+Configurations.getInstance().getP("threadPoolSize"));
-        String x = Configurations.getInstance().getP("threadPoolSize");//todo-check!
-        if(x == null)
-        {
-            Configurations.setP("threadPoolSize", "5");
+        String x = Configurations.getInstance().getP("threadPoolSize");
+        String y = Configurations.getInstance().getP("problemSolver");
+        String z = Configurations.getInstance().getP("generateMaze");
+        if (x == null) {
+            Configurations.setP("threadPoolSize", "4");
+        }
+        if (y == null) {
             Configurations.setP("problemSolver", "BreadthFirstSearch");
+        }
+        if (z == null) {
             Configurations.setP("generateMaze", "MyMazeGenerator");
-            Configurations.setP("compress", "MyCompressorOutputStream");
         }
         String str = config.getP("threadPoolSize");
         executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(Integer.parseInt(str));
