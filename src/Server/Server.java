@@ -15,14 +15,17 @@ public class Server {
     private ThreadPoolExecutor executor;
     private boolean stop;
 
+    // constructor
     public Server(int port, int listeningIntervalMS, IServerStrategy strategy) {
         this.port = port;
         this.listeningIntervalMS = listeningIntervalMS;
         this.strategy = strategy;
+        // read from config the basic properties.
         Configurations config = Configurations.getInstance();
         String x = Configurations.getInstance().getP("threadPoolSize");
         String y = Configurations.getInstance().getP("problemSolver");
         String z = Configurations.getInstance().getP("generateMaze");
+        //if any of them is null, reset it to default.
         if (x == null) {
             Configurations.setP("threadPoolSize", "4");
         }
@@ -42,6 +45,7 @@ public class Server {
 
     private void runServer() {
         try {
+            // make new server socket
             ServerSocket serverSocket = new ServerSocket(port);
             serverSocket.setSoTimeout(listeningIntervalMS);
             while (!stop) {

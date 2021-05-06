@@ -9,6 +9,12 @@ public class Client {
     private int serverPort;
     private IClientStrategy strategy;
 
+    /**
+     * constructor
+     * @param serverIP - server ip.
+     * @param serverPort - the port to listen to.
+     * @param strategy - what the server should do.
+     */
     public Client(InetAddress serverIP, int serverPort, IClientStrategy strategy) {
         this.serverIP = serverIP;
         this.serverPort = serverPort;
