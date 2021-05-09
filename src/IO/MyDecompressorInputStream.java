@@ -47,7 +47,6 @@ public class MyDecompressorInputStream extends InputStream {
 
     /**
      * get a decimal number and convert it to 8 bit binary number
-     *
      * @param x
      * @return
      */
@@ -65,16 +64,11 @@ public class MyDecompressorInputStream extends InputStream {
 
     /**
      * get a int number and insert it as 4 byte
-     *
      * @param b
      * @param startIndex
      * @param value      (will get just one or zeros)
      */
     private void add(byte[] b, int startIndex, int value) {
-        /*b[startIndex] = 0;
-        b[startIndex + 1] = 0;
-        b[startIndex + 2] = 0;
-        b[startIndex + 3] = (byte) value; old  */
         b[startIndex] = (byte) value;
     }
 

@@ -39,7 +39,6 @@ public class Configurations {
         try {
             prop.setProperty(str, val);
             prop.store(instance.out, null);
-
         } catch (IOException e) {
             e.printStackTrace();
         }

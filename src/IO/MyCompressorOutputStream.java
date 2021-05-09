@@ -5,7 +5,6 @@ import java.io.OutputStream;
 import java.util.Arrays;
 
 public class MyCompressorOutputStream extends OutputStream {
-
     public OutputStream out;
 
     public MyCompressorOutputStream(OutputStream out) {
@@ -18,7 +17,7 @@ public class MyCompressorOutputStream extends OutputStream {
         int row = ((barray[0] & 0xFF) << 24) | ((barray[1] & 0xFF) << 16) | ((barray[2] & 0xFF) << 8) | ((barray[3] & 0xFF));
         int col = ((barray[4] & 0xFF) << 24) | ((barray[5] & 0xFF) << 16) | ((barray[6] & 0xFF) << 8) | ((barray[7] & 0xFF));
         int amount = col * row;
-        int rest = (amount ) % 8; // hold the value of the rest (e.g size 4*5=20 -> two numbers of 8 bit, and another 4 regualr numbers)
+        int rest = (amount ) % 8; // hold the value of the rest (e.g size 4*5=20 -> two numbers of 8 bit, and another 4 regular numbers)
         int[] binaryArr = new int[8];
         byte[] matrix = Arrays.copyOfRange(barray, 27, barray.length); // hold just the part of the maze matrix
         int index = 0;
@@ -38,13 +37,13 @@ public class MyCompressorOutputStream extends OutputStream {
             }
             index++;
         }
-        for (int i = barray.length - rest*4+3; i < barray.length; i+=4) { // wrting the rest of the numbers
+        for (int i = barray.length - rest*4+3; i < barray.length; i+=4) { // writing the rest of the numbers
             out.write(barray[i]);
         }
     }
 
     /**
-     *  conveert 8 bit number to decimal number
+     *  convert 8 bit number to decimal number
      * @param arr of 8 numbers
      * @throws IOException
      */

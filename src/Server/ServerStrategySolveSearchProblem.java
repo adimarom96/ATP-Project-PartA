@@ -42,7 +42,7 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy, Serial
         }
         m.unlock();//release the lock so others can read/write.
 
-        // read from config which search algo to use.
+        // read from config which search algorithm to use.
         Solution sol;
         Configurations config = Configurations.getInstance();
         String search = config.getP("problemSolver");
