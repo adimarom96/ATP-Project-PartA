@@ -30,7 +30,7 @@ public class RunCommunicateWithServers {
         solveSearchProblemServer.start();
         mazeGeneratingServer.start();
 
-        Thread[] Tarr = new Thread[10];
+        /*Thread[] Tarr = new Thread[10];
         for (int i = 0; i < Tarr.length; i++) {
             Tarr[i] = new Thread(RunCommunicateWithServers::CommunicateWithServer_SolveSearchProblem);
             Tarr[i].start();
@@ -54,11 +54,27 @@ public class RunCommunicateWithServers {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }
+        }*/
 
         //Communicating with servers
         //CommunicateWithServer_MazeGenerating();
-        //CommunicateWithServer_SolveSearchProblem();
+        CommunicateWithServer_SolveSearchProblem();
+
+        int counter = 0;
+        Thread[] threads = new Thread[6];
+        for (int i = 0; i < threads.length; i++) {
+            threads[i] = new Thread(() -> {
+                CommunicateWithServer_MazeGenerating();
+            });
+            threads[i].start();
+        }
+        for (int i = 0; i < threads.length; i++) {
+            try {
+                threads[i].join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 
         //Stopping all servers
         mazeGeneratingServer.stop();
@@ -74,7 +90,7 @@ public class RunCommunicateWithServers {
                         ObjectOutputStream toServer = new ObjectOutputStream(outToServer);
                         ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
                         toServer.flush();
-                        int x = 100;
+                        int x = 5;
                         int[] mazeDimensions = new int[]{x, x};
                         toServer.writeObject(mazeDimensions); //send maze dimensions to server
                         toServer.flush();
@@ -83,7 +99,7 @@ public class RunCommunicateWithServers {
                         byte[] b = new byte[x * x + 24]; //allocating byte[] for the decompressed maze -
                         is.read(b); //Fill decompressedMaze with bytes
                         Maze maze = new Maze(b);
-                        maze.print();
+                        //maze.print();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
