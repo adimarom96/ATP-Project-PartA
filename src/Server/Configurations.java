@@ -15,14 +15,16 @@ public class Configurations {
      */
     private Configurations() {
         try {
-            in = new FileInputStream("./resources/config.properties");
+            String name = "resources\\config.properties";
+            in = new FileInputStream(name);
             prop = new Properties();
             prop.load(in);
-            out = new FileOutputStream("./resources/config.properties");
+            out = new FileOutputStream(name);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     public static Configurations getInstance() {
         // if the instance not exist create it.
         if (instance == null) {
